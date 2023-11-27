@@ -4,6 +4,16 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>d7671c1d-2586-4bbb-8c6b-0b9dcbdfc731</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\MicroBytKonamic.Application\MicroBytKonamic.Application.csproj" />
+    <ProjectReference Include="..\MicroBytKonamic.Commom\MicroBytKonamic.Commom.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\unity\" />
+  </ItemGroup>
 
 </Project>

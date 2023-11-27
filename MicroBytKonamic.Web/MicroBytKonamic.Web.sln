@@ -5,7 +5,16 @@ VisualStudioVersion = 17.8.34309.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Web", "MicroBytKonamic.Web.csproj", "{1FD42232-2282-4183-A3A8-86402D4FF45D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroBytKonamic.Data", "..\MicroBytKonamic.Data\MicroBytKonamic.Data.csproj", "{76CAB93A-9BF1-4DE6-B043-0CFB131CD589}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Data", "..\MicroBytKonamic.Data\MicroBytKonamic.Data.csproj", "{76CAB93A-9BF1-4DE6-B043-0CFB131CD589}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroBytKonamic.Application", "..\MicroBytKonamic.Application\MicroBytKonamic.Application.csproj", "{62506349-95D0-4AE5-80EF-E867E36FA909}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroBytKonamic.Commom", "..\MicroBytKonamic.Commom\MicroBytKonamic.Commom.csproj", "{D337EBF6-9891-475D-BBA1-B6E4D7574943}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{B9AC9255-5EC1-46EB-8844-88689997EFC5}"
+	ProjectSection(SolutionItems) = preProject
+		..\.gitignore = ..\.gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +30,14 @@ Global
 		{76CAB93A-9BF1-4DE6-B043-0CFB131CD589}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{76CAB93A-9BF1-4DE6-B043-0CFB131CD589}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{76CAB93A-9BF1-4DE6-B043-0CFB131CD589}.Release|Any CPU.Build.0 = Release|Any CPU
+		{62506349-95D0-4AE5-80EF-E867E36FA909}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{62506349-95D0-4AE5-80EF-E867E36FA909}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{62506349-95D0-4AE5-80EF-E867E36FA909}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{62506349-95D0-4AE5-80EF-E867E36FA909}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D337EBF6-9891-475D-BBA1-B6E4D7574943}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D337EBF6-9891-475D-BBA1-B6E4D7574943}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D337EBF6-9891-475D-BBA1-B6E4D7574943}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D337EBF6-9891-475D-BBA1-B6E4D7574943}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
