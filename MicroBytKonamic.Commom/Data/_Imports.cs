@@ -1,0 +1,1 @@
+﻿global using MicroBytKonamic.Commom.Dto;

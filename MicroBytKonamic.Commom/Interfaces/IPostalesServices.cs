@@ -8,5 +8,5 @@ namespace MicroBytKonamic.Commom.Interfaces;
 
 public interface IPostalesServices
 {
-    Task<FelicitacionDto> GetFelicitacion(IntegerIntervals[]? intervals);
+    Task<GetFelicitacionResult> GetFelicitacion(IntegerIntervals intervals);
 }

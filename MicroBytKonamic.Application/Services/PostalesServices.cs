@@ -20,12 +20,15 @@ internal class PostalesServices : IPostalesServices
         _mapper = mapper;
     }
 
-    public async Task<FelicitacionDto> GetFelicitacion(IntegerIntervals[]? intervals)
+    public async Task<GetFelicitacionResult> GetFelicitacion(IntegerIntervals intervals)
     {
         var query = _dbContext.Postales.OrderByDescending(p => p.IdPostales);
         var postal = await query.FirstOrDefaultAsync();
         var dto = _mapper.Map<FelicitacionDto>(postal);
 
-        return dto;
+        if (postal != null)
+            intervals.Add(postal.IdPostales);
+
+        return new GetFelicitacionResult { FelicitacionDto = dto, Intervals = intervals };
     }
 }

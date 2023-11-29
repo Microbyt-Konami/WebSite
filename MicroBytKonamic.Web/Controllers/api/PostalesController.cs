@@ -16,7 +16,7 @@ namespace MicroBytKonamic.Web.Controllers.api
         }
 
         [HttpPost("getfelicitacion")]
-        public Task<FelicitacionDto> GetFelicitacion(IntegerIntervals[]? intervals)
+        public Task<GetFelicitacionResult> GetFelicitacion(IntegerIntervals intervals)
             => _postalesServices.GetFelicitacion(intervals);
     }
 }
