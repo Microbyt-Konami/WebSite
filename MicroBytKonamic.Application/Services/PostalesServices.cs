@@ -20,15 +20,45 @@ internal class PostalesServices : IPostalesServices
         _mapper = mapper;
     }
 
-    public async Task<GetFelicitacionResult> GetFelicitacion(IntegerIntervals intervals)
+    public async Task<GetFelicitacionResult> GetFelicitacion(GetFelicitacionIn input)
     {
-        var query = _dbContext.Postales.OrderByDescending(p => p.IdPostales);
-        var postal = await query.FirstOrDefaultAsync();
-        var dto = _mapper.Map<FelicitacionDto>(postal);
+        FelicitacionDto? dto = null;
+        IQueryable<Postale> query = from p in _dbContext.Postales where p.Anyo == input.Anyo orderby p.IdPostales descending select p;
+        var intervals = input.Intervals;
+        var postal0 = await query.FirstOrDefaultAsync();
 
-        if (postal != null)
+        if (postal0 != null)
+        {
+
+            AddIntervals(ref query, input.Intervals);
+
+            var postal = await query.FirstOrDefaultAsync();
+
+            if (postal == null)
+            {
+                postal = postal0;
+                intervals.Clear();
+            }
+
+            dto = _mapper.Map<FelicitacionDto>(postal);
             intervals.Add(postal.IdPostales);
+        }
 
         return new GetFelicitacionResult { FelicitacionDto = dto, Intervals = intervals };
+    }
+
+    internal void AddIntervals(ref IQueryable<Postale> query, IntegerIntervals intervals)
+    {
+        /*
+             [a b] [c d]
+             (id>=a && id<=b) || (id>=c && id<=d) =
+             !((id>=a && id<=b) || (id>=c && id<=d)) =
+             !(id>=a && id<=b) && !(id>=c && id<=d) =
+             (id<a || id>b) && (id<c || id>d)
+         */
+        foreach (var interval in intervals.Intervals)
+        {
+            query = query.Where(p => p.IdPostales < interval.Start || p.IdPostales > interval.End);
+        }
     }
 }

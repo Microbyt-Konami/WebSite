@@ -10,16 +10,33 @@ namespace MicroBytKonamic.Commom.Data;
 [DebuggerDisplay($"{{{nameof(GetDebuggerDisplay)}(),nq}}")]
 public class IntegerIntervals : IEquatable<IntegerIntervals>
 {
-    public List<IntegerInterval> Intervals { get; } = new List<IntegerInterval>();
+    private List<IntegerInterval>? _intervals;
 
-    public IntegerIntervals() { }
+    public List<IntegerInterval> Intervals
+    {
+        get => _intervals!;
+        set
+        {
+            _intervals = value;
+            _intervals.Sort();
+        }
+    }
 
-    public IntegerIntervals(IEnumerable<IntegerInterval> intervals) => Intervals.AddRange(intervals);
+    public IntegerIntervals()
+    {
+        _intervals = new List<IntegerInterval>();
+    }
+
+    public IntegerIntervals(IEnumerable<IntegerInterval> intervals) => Intervals = intervals.ToList();
 
     public IntegerIntervals(params int[] intervals)
     {
+        var intervalsTmp = new List<IntegerInterval>();
+
         for (var i = 0; i < intervals.Length; i += 2)
-            Intervals.Add(new IntegerInterval { Start = intervals[i], End = i + 1 < intervals.Length ? intervals[i + 1] : intervals[i] });
+            intervalsTmp.Add(new IntegerInterval { Start = intervals[i], End = i + 1 < intervals.Length ? intervals[i + 1] : intervals[i] });
+
+        Intervals = intervalsTmp;
     }
 
     public void Add(int num)
@@ -98,4 +115,6 @@ public class IntegerIntervals : IEquatable<IntegerIntervals>
     }
 
     private string GetDebuggerDisplay() => ToString();
+
+    public void Clear() => _intervals!.Clear();
 }
