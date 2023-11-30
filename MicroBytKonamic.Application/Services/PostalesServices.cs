@@ -1,11 +1,6 @@
 ﻿using MicroBytKonamic.Commom.Data;
 using MicroBytKonamic.Commom.Dto;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MicroBytKonamic.Application.Services;
 
@@ -30,7 +25,7 @@ internal class PostalesServices : IPostalesServices
         if (postal0 != null)
         {
 
-            AddIntervals(ref query, input.Intervals);
+            AddNotIntervals(ref query, input.Intervals);
 
             var postal = await query.FirstOrDefaultAsync();
 
@@ -47,11 +42,11 @@ internal class PostalesServices : IPostalesServices
         return new GetFelicitacionResult { FelicitacionDto = dto, Intervals = intervals };
     }
 
-    internal void AddIntervals(ref IQueryable<Postale> query, IntegerIntervals intervals)
+    internal void AddNotIntervals(ref IQueryable<Postale> query, IntegerIntervals intervals)
     {
         /*
              [a b] [c d]
-             (id>=a && id<=b) || (id>=c && id<=d) =
+             (id>=a && id<=b) || (id>=c && id<=d)
              !((id>=a && id<=b) || (id>=c && id<=d)) =
              !(id>=a && id<=b) && !(id>=c && id<=d) =
              (id<a || id>b) && (id<c || id>d)
