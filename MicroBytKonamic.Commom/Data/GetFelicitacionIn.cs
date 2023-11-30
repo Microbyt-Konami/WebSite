@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 
 namespace MicroBytKonamic.Commom.Data;
 
-public class GetFelicitacionResult
+public class GetFelicitacionIn
 {
-    public FelicitacionDto? FelicitacionDto { get; set; }
+    public required int Anyo { get; set; }
     public required IntegerIntervals Intervals { get; set; }
 }
