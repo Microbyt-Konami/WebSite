@@ -24,7 +24,6 @@ internal class PostalesServices : IPostalesServices
 
         if (postal0 != null)
         {
-
             AddNotIntervals(ref query, input.Intervals);
 
             var postal = await query.FirstOrDefaultAsync();

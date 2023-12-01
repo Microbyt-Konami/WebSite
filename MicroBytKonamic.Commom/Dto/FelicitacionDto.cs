@@ -9,6 +9,7 @@ namespace MicroBytKonamic.Commom.Dto;
 public class FelicitacionDto
 {
     public string? Nick { get; set; }
+    public JsonDateTime? Fecha { get; set; }
 
     public string? Texto { get; set; }
 }

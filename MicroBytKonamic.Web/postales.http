@@ -29,3 +29,16 @@ Content-Type: application/json
 }
 
 ###
+
+POST http://microbykonamic.es/api/postales/getfelicitacion
+Content-Type: application/json
+
+{
+  "anyo": 2023,
+  "intervals": {
+    "intervals": [      
+    ]
+  }
+}
+
+###
