@@ -37,7 +37,11 @@ Content-Type: application/json
   "anyo": 2023,
   "felicitacionDto":
   {
-
+    "nick": "pepito",
+    "fecha": {
+      "ticks": 638369791200000000
+    },
+    "texto": "Una feliz navidad y propspero anño nuevo"
   }
 }
 ###
