@@ -24,4 +24,7 @@ public struct JsonDateTime
 
     public static implicit operator DateTime(JsonDateTime jdt) => jdt._date.ToLocalTime();
     public static implicit operator JsonDateTime(DateTime dt) => new JsonDateTime(dt);
+
+    public override string ToString() => _date.ToString();
+    public string ToString(string format, IFormatProvider? formatProvider = null) => _date.ToString(format, formatProvider);
 }
