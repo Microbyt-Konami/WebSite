@@ -18,5 +18,8 @@ namespace MicroBytKonamic.Web.Controllers.api
         [HttpPost("getfelicitacion")]
         public Task<GetFelicitacionResult> GetFelicitacion(GetFelicitacionIn input)
             => _postalesServices.GetFelicitacion(input);
+
+        public Task<IntegerIntervals> AltaFelicitacion(AltaFelicitacionIn input)
+            => _postalesServices.AltaFelicitacion(input);
     }
 }
