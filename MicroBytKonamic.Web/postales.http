@@ -30,6 +30,18 @@ Content-Type: application/json
 
 ###
 
+POST https://localhost:7076/api/postales/altafelicitacion
+Content-Type: application/json
+
+{
+  "anyo": 2023,
+  "felicitacionDto":
+  {
+
+  }
+}
+###
+
 POST http://microbykonamic.es/api/postales/getfelicitacion
 Content-Type: application/json
 

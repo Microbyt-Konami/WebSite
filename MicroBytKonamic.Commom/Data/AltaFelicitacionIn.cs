@@ -9,5 +9,5 @@ namespace MicroBytKonamic.Commom.Data;
 public class AltaFelicitacionIn
 {
     public required int Anyo { get; set; }
-    public FelicitacionDto? FelicitacionDto { get; set; }
+    public required FelicitacionDto FelicitacionDto { get; set; }
 }

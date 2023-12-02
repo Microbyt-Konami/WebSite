@@ -43,9 +43,6 @@ internal class PostalesServices : IPostalesServices
 
     public async Task<IntegerIntervals> AltaFelicitacion(AltaFelicitacionIn input, CancellationToken cancellationToken = default)
     {
-        if (input.FelicitacionDto == null)
-            throw new ApplicationException("Falta poner nick y el texto");
-
         if (!input.FelicitacionDto.Fecha.HasValue)
             throw new ArgumentNullException("Fecha is null");
 
