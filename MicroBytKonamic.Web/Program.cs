@@ -19,6 +19,7 @@ builder.Services.AddMicrobytKonamic();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
+builder.Services.AddProblemDetails();
 
 var app = builder.Build();
 

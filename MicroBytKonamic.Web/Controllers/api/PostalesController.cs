@@ -1,4 +1,5 @@
-﻿using MicroBytKonamic.Commom.Interfaces;
+﻿using MicroBytKonamic.Commom.Exceptions;
+using MicroBytKonamic.Commom.Interfaces;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,6 +22,14 @@ namespace MicroBytKonamic.Web.Controllers.api
 
         [HttpPost("altafelicitacion")]
         public Task<IntegerIntervals> AltaFelicitacion(AltaFelicitacionIn input)
-            => _postalesServices.AltaFelicitacion(input);
+        // => _postalesServices.AltaFelicitacion(input);
+        {
+            try
+            {
+                return _postalesServices.AltaFelicitacion(input);
+            }
+            catch (MBException) { throw; }
+            catch { throw new SuportCallApiException(); }
+        }
     }
 }
