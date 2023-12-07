@@ -14,9 +14,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{B9AC9255-5EC1-46EB-8844-88689997EFC5}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
+		TODO.rd = TODO.rd
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroBytKonamic.Tests", "..\MicroBytKonamic.Tests\MicroBytKonamic.Tests.csproj", "{415C716A-658D-4988-83E7-144CC680CDD8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Tests", "..\MicroBytKonamic.Tests\MicroBytKonamic.Tests.csproj", "{415C716A-658D-4988-83E7-144CC680CDD8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

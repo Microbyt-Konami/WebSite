@@ -21,15 +21,15 @@ namespace MicroBytKonamic.Web.Controllers.api
             => _postalesServices.GetFelicitacion(input);
 
         [HttpPost("altafelicitacion")]
-        public Task<IntegerIntervals> AltaFelicitacion(AltaFelicitacionIn input)
+        public async Task<IntegerIntervals> AltaFelicitacion(AltaFelicitacionIn input)
         // => _postalesServices.AltaFelicitacion(input);
         {
             try
             {
-                return _postalesServices.AltaFelicitacion(input);
+                return await _postalesServices.AltaFelicitacion(input);
             }
             catch (MBException) { throw; }
-            catch { throw new SuportCallApiException(); }
+            catch (Exception ex) { throw new SuportCallApiException(ex); }
         }
     }
 }
