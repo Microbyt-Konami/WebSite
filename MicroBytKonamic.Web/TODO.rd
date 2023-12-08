@@ -1,1 +1,2 @@
-1. Internalización
+1. Multiidoma
+2. Icono MicrobytKonamic
