@@ -54,6 +54,7 @@ internal class PostalesServices : IPostalesServices
 
         var postal = _mapper.Map<Postale>(input.FelicitacionDto);
 
+        postal.Anyo = input.Anyo;
         await _dbContext.Postales.AddAsync(postal, cancellationToken);
         cancellationToken.ThrowIfCancellationRequested();
         await _dbContext.SaveChangesAsync(cancellationToken);
