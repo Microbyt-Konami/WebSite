@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,8 @@ namespace MicroBytKonamic.Commom.Dto;
 
 public class FelicitacionDto
 {
-    public string? Nick { get; set; }
-    public JsonDateTime? Fecha { get; set; }
+    [Required] public string? Nick { get; set; }
+    [Required] public JsonDateTime? Fecha { get; set; }
 
-    public string? Texto { get; set; }
+    [Required] public string? Texto { get; set; }
 }

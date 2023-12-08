@@ -41,6 +41,28 @@ internal class PostalesServices : IPostalesServices
         return new GetFelicitacionResult { FelicitacionDto = dto, Intervals = intervals };
     }
 
+    public async Task<IntegerIntervals> AltaFelicitacion(AltaFelicitacionIn input, CancellationToken cancellationToken = default)
+    {
+        if (!input.FelicitacionDto.Fecha.HasValue)
+            throw new ArgumentNullException("Fecha is null");
+
+        if (string.IsNullOrWhiteSpace(input.FelicitacionDto.Nick))
+            throw new MBException("el nick es obligatorio");
+
+        if (string.IsNullOrWhiteSpace(input.FelicitacionDto.Texto))
+            throw new MBException("el texto es obligatorio");
+
+        var postal = _mapper.Map<Postale>(input.FelicitacionDto);
+
+        postal.Anyo = input.Anyo;
+        await _dbContext.Postales.AddAsync(postal, cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
+        await _dbContext.SaveChangesAsync(cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        return new IntegerIntervals(postal.IdPostales, postal.IdPostales);
+    }
+
     internal void AddNotIntervals(ref IQueryable<Postale> query, IntegerIntervals intervals)
     {
         /*

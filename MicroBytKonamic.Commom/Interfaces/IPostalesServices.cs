@@ -9,4 +9,5 @@ namespace MicroBytKonamic.Commom.Interfaces;
 public interface IPostalesServices
 {
     Task<GetFelicitacionResult> GetFelicitacion(GetFelicitacionIn input);
+    Task<IntegerIntervals> AltaFelicitacion(AltaFelicitacionIn input, CancellationToken cancellationToken = default);
 }
