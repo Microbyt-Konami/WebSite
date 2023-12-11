@@ -15,7 +15,15 @@ internal class PostalesServices : IPostalesServices
         _mapper = mapper;
     }
 
-    public async Task<GetFelicitacionResult> GetFelicitacion(GetFelicitacionIn input)
+    public int CalcAnyo(DateTime date)
+    {
+        var month = date.Month;
+        var year = month switch { 12 => date.Year, _ => date.Year - 1 };
+
+        return year;
+    }
+
+    public async Task<GetFelicitacionResult> GetFelicitacionAsync(GetFelicitacionIn input)
     {
         FelicitacionDto? dto = null;
         IQueryable<Postale> query = from p in _dbContext.Postales where p.Anyo == input.Anyo orderby p.IdPostales descending select p;
@@ -41,7 +49,7 @@ internal class PostalesServices : IPostalesServices
         return new GetFelicitacionResult { FelicitacionDto = dto, Intervals = intervals };
     }
 
-    public async Task<IntegerIntervals> AltaFelicitacion(AltaFelicitacionIn input, CancellationToken cancellationToken = default)
+    public async Task<IntegerIntervals> AltaFelicitacionAsync(AltaFelicitacionIn input, CancellationToken cancellationToken = default)
     {
         if (!input.FelicitacionDto.Fecha.HasValue)
             throw new ArgumentNullException("Fecha is null");
