@@ -8,6 +8,7 @@ namespace MicroBytKonamic.Commom.Interfaces;
 
 public interface IPostalesServices
 {
-    Task<GetFelicitacionResult> GetFelicitacion(GetFelicitacionIn input);
-    Task<IntegerIntervals> AltaFelicitacion(AltaFelicitacionIn input, CancellationToken cancellationToken = default);
+    int CalcAnyo(DateTime date);
+    Task<GetFelicitacionResult> GetFelicitacionAsync(GetFelicitacionIn input);
+    Task<IntegerIntervals> AltaFelicitacionAsync(AltaFelicitacionIn input, CancellationToken cancellationToken = default);
 }
