@@ -20,8 +20,4 @@ public class MBException : ApplicationException
     public MBException(string? message, Exception? innerException) : base(message, innerException)
     {
     }
-
-    protected MBException(SerializationInfo info, StreamingContext context) : base(info, context)
-    {
-    }
 }

@@ -1,6 +1,8 @@
 //using Microsoft.AspNetCore.ResponseCompression;
 //using System.IO.Compression;
 
+using MicroBytKonamic.Web.Services;
+
 var builder = WebApplication.CreateBuilder(args);
 
 //builder.Services.AddResponseCompression(options =>
@@ -14,6 +16,7 @@ var builder = WebApplication.CreateBuilder(args);
 //    options.Level = CompressionLevel.SmallestSize;
 //});
 
+builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
 // MicrobytKonamic services
 builder.Services.AddMicrobytKonamic();
 
