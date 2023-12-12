@@ -1,18 +1,16 @@
-﻿using MicroBytKonamic.Commom.Data;
-using MicroBytKonamic.Commom.Dto;
-using Microsoft.EntityFrameworkCore;
-
-namespace MicroBytKonamic.Application.Services;
+﻿namespace MicroBytKonamic.Application.Services;
 
 internal class PostalesServices : IPostalesServices
 {
     private readonly MicrobytkonamicContext _dbContext;
     private readonly IMapper _mapper;
+    private readonly IResourcesServices _resourcesServices;
 
-    public PostalesServices(MicrobytkonamicContext dbContext, IMapper mapper)
+    public PostalesServices(MicrobytkonamicContext dbContext, IMapper mapper, IResourcesServices resourcesServices)
     {
         _dbContext = dbContext;
         _mapper = mapper;
+        _resourcesServices = resourcesServices;
     }
 
     public int CalcAnyo(DateTime date)
@@ -69,6 +67,14 @@ internal class PostalesServices : IPostalesServices
         cancellationToken.ThrowIfCancellationRequested();
 
         return new IntegerIntervals(postal.IdPostales, postal.IdPostales);
+    }
+
+    public async Task<byte[]> ReadMP3NavidadAsync()
+    {
+        var file = _resourcesServices.GetRandomNavidadMp3();
+        var data = await File.ReadAllBytesAsync(file);
+
+        return data;
     }
 
     internal void AddNotIntervals(ref IQueryable<Postale> query, IntegerIntervals intervals)

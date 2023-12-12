@@ -43,4 +43,11 @@ public class PostalNavidenya : Controller
     }
 
     public IActionResult VerPostalNavidenya() => View();
+
+    public async Task<IActionResult> MusicaNavidadMP3()
+    {
+        var data = await _postalesServices.ReadMP3NavidadAsync();
+
+        return File(data, "audio/mpeg");
+    }
 }
