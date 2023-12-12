@@ -16,4 +16,52 @@
     <Folder Include="wwwroot\unity\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Update="Resources\Sounds\Navidad\carol-of-the-bells-177048.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\christmas-miracle-upbeat-children-happy-santa-positive-family-174973.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\christmas-snow-176839.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\deck-the-halls-hip-hop-version-christmas-music-for-video-vlog-172531.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\happy-santa_60sec-175537.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\jingle-bells-background-christmas-music-for-short-videos-advertising-170729.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\joyful-jingle-173919.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\joyful-snowman_60sec-176773.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\magic-christmas_medium-177545.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\magical-moments-of-christmas-176814.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\merry-christmas-176831.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\rock-n-christmas_short-177548.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\soft-happy-new-year-176119.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\the-nutcracker-electro-house-version-dance-of-the-sugar-plum-fairy-173835.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Sounds\Navidad\we-wish-you-a-merry-christmas_60sec-174155.mp3">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>

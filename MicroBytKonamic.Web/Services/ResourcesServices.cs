@@ -15,7 +15,7 @@ public class ResourcesServices : IResourcesServices
 
     public string GetRandomNavidadMp3()
     {
-        var files = Directory.GetFiles(GetDirectory(@"Sounds\Navidad"), "*.mp3");
+        var files = Directory.GetFiles(GetDirectory(@"Sounds/Navidad"), "*.mp3");
         var file = files[Random.Shared.Next(files.Length)];
 
         return file;
