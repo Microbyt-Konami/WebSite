@@ -3,7 +3,7 @@
 *@
 @{
     var url = Url.ActionLink("Index", "PostalNavidenya");
-    var urlEncoding = Html.UrlEncoder.Encode(url);
+    var urlEncoding = Html.UrlEncoder.Encode(url!);
     var msg = $"Haz clic en el siguiente enlace para ver la postal: {url}";
     var msgEncoding = Html.UrlEncoder.Encode(msg);
     var text = "Postal navideña";
