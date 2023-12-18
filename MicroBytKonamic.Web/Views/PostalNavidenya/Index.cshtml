@@ -29,19 +29,19 @@
                     <textarea asp-for="Felicitacion" class="form-control" placeholder="Escribe tu felicitación"></textarea>
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Añadir felicitación y mostrar postal navideña" class="btn btn-primary btn-lg" />
+                    <input type="submit" value="Añadir felicitación y Verla" class="btn btn-primary btn-lg" />
                 </div>
             </form>
         </fieldset>
     </div>
     <div class="row">
-        <a asp-action="VerPostalNavidenya" class="btn btn-outline-secondary btn-lg">Mostrar postal navideña</a>
+        <a asp-action="VerPostalNavidenya" class="btn btn-outline-secondary btn-lg">Ver postal navideña</a>
     </div>
     <div class="row">
-        <fieldset class="border rounded-3 p-3">
-            <legend class="float-none w-auto px-3">Comparte esta postal navideña!!!</legend>
+        <div class="shadow border rounded-3 p-3">
+            <h6>Comparte esta postal navideña!!!</h6>
             <partial name="_PostalNavUrlSharedSocial"></partial>
-        </fieldset>
+        </div>
     </div>
 </div>
 

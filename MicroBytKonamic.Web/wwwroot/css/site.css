@@ -1,3 +1,8 @@
+@font-face {
+    font-family: 'zx';
+    src: url('/css/zx.ttf');
+}
+
 html {
   font-size: 14px;
 }
@@ -19,6 +24,40 @@ html {
 
 body {
   margin-bottom: 60px;
+}
+
+.site-header-logo {
+    font-size: 30px;
+    background-color: red;
+    color: white;
+    height: 50px;
+    width: 50px;
+    -ms-border-radius: 25px;
+    border-radius: 25px;
+    text-align: center;
+    line-height: 50px;
+    margin-right: 5px;
+}
+
+.site-header-text {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.site-header-title {
+    display: inline;
+    line-height: 1;
+    font-size: 23px;
+    color: black;
+    font-weight: bold;
+    margin: 0;
+}
+
+.site-header-title-extra {
+    display: inline;
+    color: red;
+    font-weight: normal;
+    margin: 0;
 }
 
 #unity-container {
