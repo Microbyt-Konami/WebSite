@@ -18,12 +18,15 @@ namespace MicroBytKonamic.Web.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult About()
         {
             return View();
         }
 
-        public IActionResult Navidad2023() => View();
+        //public IActionResult Privacy()
+        //{
+        //    return View();
+        //}
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
