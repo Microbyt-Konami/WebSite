@@ -1,6 +1,10 @@
+// USE_MVC
+// USE_BLAZORAPP
+
 //using Microsoft.AspNetCore.ResponseCompression;
 //using System.IO.Compression;
 
+using MicroBytKonamic.Web.Components;
 using MicroBytKonamic.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +25,13 @@ builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
 builder.Services.AddMicrobytKonamic();
 
 // Add services to the container.
+#if USE_MVC
 builder.Services.AddControllersWithViews();
+#elif USE_BLAZORAPP
+builder.Services.AddControllers();
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
+#endif
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
@@ -46,13 +56,21 @@ app.UseStaticFiles(new StaticFileOptions()
 {
     ContentTypeProvider = provider
 });
+app.UseAntiforgery();
 
+#if USE_MVC
 app.UseRouting();
+#endif
 
 app.UseAuthorization();
 
+#if USE_MVC
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
+#elif USE_BLAZORAPP
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
+#endif
 
 app.Run();
