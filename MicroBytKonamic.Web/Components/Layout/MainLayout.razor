@@ -1,20 +1,27 @@
-﻿@inherits LayoutComponentBase
+﻿@using System.Reflection
+@inherits LayoutComponentBase
 
-<div class="page">
-    <div class="sidebar">
-        <NavMenu />
-    </div>
+@{
+    var assembly = Assembly.GetEntryAssembly()!;
+    string copyright = assembly.GetCustomAttribute<AssemblyCopyrightAttribute>()!.Copyright;
+    string version = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()!.Version;
+}
 
-    <main>
-        <div class="top-row px-4">
-            <a href="https://learn.microsoft.com/aspnet/core/" target="_blank">About</a>
-        </div>
+<PageTitle>MicroBytKonamic</PageTitle>
 
-        <article class="content px-4">
-            @Body
-        </article>
+<header>
+    <NavMenu />
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @Body
     </main>
 </div>
+<footer class="border-top footer text-muted">
+    <div class="container">
+        @copyright V.@version @* - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a> *@
+    </div>
+</footer>
 
 <div id="blazor-error-ui">
     An unhandled error has occurred.
