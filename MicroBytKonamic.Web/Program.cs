@@ -56,10 +56,10 @@ app.UseStaticFiles(new StaticFileOptions()
 {
     ContentTypeProvider = provider
 });
+app.UseRouting();
 app.UseAntiforgery();
 
 #if USE_MVC
-app.UseRouting();
 #endif
 
 app.UseAuthorization();
@@ -69,6 +69,7 @@ app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 #elif USE_BLAZORAPP
+app.MapControllers();
 app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 #endif

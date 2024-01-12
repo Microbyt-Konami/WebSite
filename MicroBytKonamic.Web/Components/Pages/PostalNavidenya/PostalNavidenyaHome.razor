@@ -1,0 +1,63 @@
+﻿@using MicroBytKonamic.Web.ViewModels.PostalNavidenya
+
+@page "/PostalNavidenya"
+@inject IPostalesServices postalesServices
+@inject NavigationManager navigationManager
+@rendermode InteractiveServer
+
+<MKPageTitle Title="Postal navideña" />
+
+<div class="container">
+    <div class="row">
+        <fieldset class="border rounded-3 p-3">
+            <legend class="float-none w-auto px-3">Añada su felicitación y vea las demás felicitaciones</legend>
+            <EditForm class="manage-post-form" Model="postal" OnValidSubmit="OnValidSubmit">
+                <DataAnnotationsValidator />
+                @* @Html.AntiForgeryToken() *@
+                <AntiforgeryToken />
+                <input type="hidden" name="Fecha" id="fecha" />
+                <div class="form-group">
+                    <label for="Nick"></label> <ValidationMessage For="() => postal.Nick" />
+                    <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="postal.Nick" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Felicitacion"></label> <ValidationMessage For="() => postal.Felicitacion" />
+                    <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="postal.Felicitacion" />
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Añadir felicitación y Ver postal" class="btn btn-primary btn-lg" />
+                </div>
+            </EditForm>
+        </fieldset>
+    </div>
+    <div class="row">
+        <a href="PostalNavidenya/VerPostalNavidenya" class="btn btn-outline-secondary btn-lg">Ver postal navideña</a>
+    </div>
+    <div class="row">
+        <div class="shadow border rounded-3 p-3">
+            <h6>Comparte esta postal navideña!!!</h6>
+            <PostalNavUrlSharedSocial />
+        </div>
+    </div>
+</div>
+
+@code {
+    private NuevaPostalViewModel postal = new NuevaPostalViewModel();
+
+    async Task OnValidSubmit()
+    {
+        var input = new AltaFelicitacionIn
+            {
+                Anyo = postalesServices.CalcAnyo(DateTime.Now),
+                FelicitacionDto = new FelicitacionDto
+                {
+                    Fecha = postal.Fecha,
+                    Nick = postal.Nick,
+                    Texto = postal.Felicitacion
+                }
+            };
+
+        await postalesServices.AltaFelicitacionAsync(input);
+        navigationManager.NavigateTo("PostalNavidenya/VerPostalNavidenya");
+    }
+}

@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MicroBytKonamic.Web.Controllers.api
 {
-    [Route("api/[controller]")]
+    [Route("api/postales")]
     [ApiController]
     public class PostalesController : ControllerBase
     {
@@ -36,6 +36,14 @@ namespace MicroBytKonamic.Web.Controllers.api
             }
             catch (MBException) { throw; }
             catch (Exception ex) { throw new SuportCallApiException(ex); }
+        }
+
+        [HttpGet("/PostalNavidenya/MusicaNavidadMP3")]
+        public async Task<IActionResult> MusicaNavidadMP3()
+        {
+            var data = await _postalesServices.ReadMP3NavidadAsync();
+
+            return File(data, "audio/mpeg");
         }
     }
 }

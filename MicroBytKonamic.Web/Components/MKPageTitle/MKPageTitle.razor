@@ -1,0 +1,12 @@
+﻿<PageTitle>@Title - MicroBytKonami</PageTitle>
+
+@if (ShowH1)
+{
+    <h1 class="page-title">@Title</h1>
+}
+
+@code
+{
+    [Parameter] public string? Title { get; set; }
+    [Parameter] public bool ShowH1 { get; set; } = true;
+}

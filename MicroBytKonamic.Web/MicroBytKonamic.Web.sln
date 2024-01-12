@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Tests", "..\MicroBytKonamic.Tests\MicroBytKonamic.Tests.csproj", "{415C716A-658D-4988-83E7-144CC680CDD8}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Web.Client", "..\MicroBytKonamic.Web.Client\MicroBytKonamic.Web.Client.csproj", "{37B9DB61-E8DD-47B6-8005-2E166A912DD6}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{415C716A-658D-4988-83E7-144CC680CDD8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{415C716A-658D-4988-83E7-144CC680CDD8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{415C716A-658D-4988-83E7-144CC680CDD8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{37B9DB61-E8DD-47B6-8005-2E166A912DD6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{37B9DB61-E8DD-47B6-8005-2E166A912DD6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{37B9DB61-E8DD-47B6-8005-2E166A912DD6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{37B9DB61-E8DD-47B6-8005-2E166A912DD6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
