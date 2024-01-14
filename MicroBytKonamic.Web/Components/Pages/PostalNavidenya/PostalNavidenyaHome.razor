@@ -1,9 +1,11 @@
 ﻿@using MicroBytKonamic.Web.ViewModels.PostalNavidenya
+@using Microsoft.AspNetCore.Antiforgery
 
 @page "/PostalNavidenya"
 @inject IPostalesServices postalesServices
 @inject NavigationManager navigationManager
-@rendermode InteractiveServer
+@attribute [RequireAntiforgeryToken]
+@* @rendermode InteractiveServer *@
 
 <MKPageTitle Title="Postal navideña" />
 

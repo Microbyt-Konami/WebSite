@@ -1,0 +1,36 @@
+﻿<PageScript Src="./_content/MicroBytKonamic.Web.PageWithScript/UnityWebGLPlayerPageScript.razor.js" Params=@_params></PageScript>
+
+<div id="unity-container" class="unity-desktop">
+    <div id="unity-fullscreen-button">
+    </div>
+    <div id="unity-build-title">
+        <partial name="_PostalNavUrlSharedSocial"></partial>
+    </div>
+    <canvas id="unity-canvas" width=1024 height=768 tabindex="-1"></canvas>
+    <div id="unity-loading-bar">
+        <div id="unity-logo"></div>
+        <div id="unity-progress-bar-empty">
+            <div id="unity-progress-bar-full"></div>
+        </div>
+    </div>
+    <div id="unity-warning"> </div>
+    @* <div id="unity-footer">
+    <div id="unity-webgl-logo"></div>
+    <div id="unity-fullscreen-button"></div>
+    <div id="unity-build-title">Navidad2023</div>
+    </div> *@
+</div>
+
+@code
+{
+    private Dictionary<string, object>? _params;
+
+    protected override void OnInitialized()
+    {
+        _params = new Dictionary<string, object>
+            {
+                ["p"] = "helloword"
+            };
+    }
+
+}
