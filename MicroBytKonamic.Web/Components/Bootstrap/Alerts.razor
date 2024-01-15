@@ -1,0 +1,9 @@
+﻿@using System.Text
+
+<div class="alert @AlertType @CssHeader" role="alert">@ChildContent</div>
+
+@code {
+    [Parameter] public string? AlertType { get; set; }
+    [Parameter] public string? CssHeader { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+}

@@ -23,14 +23,18 @@
 
 @code
 {
+    [Parameter] public string? BuildUrl { get; set; }
+
     private Dictionary<string, object>? _params;
 
-    protected override void OnInitialized()
+    protected override void OnParametersSet()
     {
-        _params = new Dictionary<string, object>
-            {
-                ["p"] = "helloword"
-            };
+        _params ??= new Dictionary<string, object>();
+
+        if (!string.IsNullOrWhiteSpace(BuildUrl))
+            _params["buildUrl"] = BuildUrl;
+        else
+            _params.Remove("buildUrl");
     }
 
 }

@@ -21,7 +21,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Tests", "..
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Web.Client", "..\MicroBytKonamic.Web.Client\MicroBytKonamic.Web.Client.csproj", "{37B9DB61-E8DD-47B6-8005-2E166A912DD6}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MicroBytKonamic.Web.PageWithScript", "..\MicroBytKonamic.Web.PageWithScript\MicroBytKonamic.Web.PageWithScript.csproj", "{8379E054-4C90-4D12-86AC-FBC6310517E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Web.PageWithScript", "..\MicroBytKonamic.Web.PageWithScript\MicroBytKonamic.Web.PageWithScript.csproj", "{8379E054-4C90-4D12-86AC-FBC6310517E9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

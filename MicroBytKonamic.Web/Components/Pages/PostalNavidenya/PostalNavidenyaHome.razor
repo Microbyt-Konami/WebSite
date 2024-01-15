@@ -2,10 +2,10 @@
 @using Microsoft.AspNetCore.Antiforgery
 
 @page "/PostalNavidenya"
+@rendermode InteractiveServer
 @inject IPostalesServices postalesServices
 @inject NavigationManager navigationManager
-@attribute [RequireAntiforgeryToken]
-@* @rendermode InteractiveServer *@
+@inject ILogger<PostalNavidenyaHome> log;
 
 <MKPageTitle Title="Postal navideña" />
 
@@ -13,21 +13,28 @@
     <div class="row">
         <fieldset class="border rounded-3 p-3">
             <legend class="float-none w-auto px-3">Añada su felicitación y vea las demás felicitaciones</legend>
-            <EditForm class="manage-post-form" Model="postal" OnValidSubmit="OnValidSubmit">
+            <EditForm @ref="form" class="manage-post-form" FormName="Felicitacion" Model="Postal" OnValidSubmit="OnValidSubmit">
+                @if (!string.IsNullOrEmpty(messageStr))
+                {
+                    <Alerts AlertType=@AlertsTypes.Danger>@messageStr</Alerts>
+                    @* <div class="alert alert-danger" role="alert">@messageStr</div> *@
+                }
                 <DataAnnotationsValidator />
                 @* @Html.AntiForgeryToken() *@
-                <AntiforgeryToken />
-                <input type="hidden" name="Fecha" id="fecha" />
+                @* En el caso de los formularios basados en EditForm, el componente AntiforgeryToken y el atributo [RequireAntiforgeryToken] se agregan automáticamente para proporcionar protección antiforgería de forma predeterminada. *@
+                @* <AntiforgeryToken /> *@
+                @* <input type="hidden" name="Fecha" id="fecha" @bind-value="Postal!.Fecha" /> *@
+                <InputHiddenUtcNow Change="d=>Postal!.Fecha=d" />
                 <div class="form-group">
-                    <label for="Nick"></label> <ValidationMessage For="() => postal.Nick" />
-                    <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="postal.Nick" />
+                    <label for="Nick"></label> <ValidationMessage For="() => Postal!.Nick" />
+                    <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="Postal!.Nick" />
                 </div>
                 <div class="form-group">
-                    <label asp-for="Felicitacion"></label> <ValidationMessage For="() => postal.Felicitacion" />
-                    <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="postal.Felicitacion" />
+                    <label asp-for="Felicitacion"></label> <ValidationMessage For="() => Postal!.Felicitacion" />
+                    <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="Postal!.Felicitacion" />
                 </div>
                 <div class="form-group">
-                    <input type="submit" value="Añadir felicitación y Ver postal" class="btn btn-primary btn-lg" />
+                    <input type="submit" value="Añadir felicitación y Ver postal" disabled="@isAdding" class="btn btn-primary btn-lg" />
                 </div>
             </EditForm>
         </fieldset>
@@ -44,22 +51,43 @@
 </div>
 
 @code {
-    private NuevaPostalViewModel postal = new NuevaPostalViewModel();
+    [SupplyParameterFromForm] public NuevaPostalViewModel? Postal { get; set; }
+
+    private EditForm? form;
+    private bool isAdding;
+    private string? messageStr;
+
+    protected override void OnInitialized() => Postal ??= new();
 
     async Task OnValidSubmit()
     {
-        var input = new AltaFelicitacionIn
-            {
-                Anyo = postalesServices.CalcAnyo(DateTime.Now),
-                FelicitacionDto = new FelicitacionDto
+        isAdding = true;
+        messageStr = null;
+        StateHasChanged();
+        try
+        {
+            var input = new AltaFelicitacionIn
                 {
-                    Fecha = postal.Fecha,
-                    Nick = postal.Nick,
-                    Texto = postal.Felicitacion
-                }
-            };
+                    Anyo = postalesServices.CalcAnyo(DateTime.Now),
+                    FelicitacionDto = new FelicitacionDto
+                    {
+                        Fecha = Postal!.Fecha,
+                        Nick = Postal!.Nick,
+                        Texto = Postal!.Felicitacion
+                    }
+                };
 
-        await postalesServices.AltaFelicitacionAsync(input);
-        navigationManager.NavigateTo("PostalNavidenya/VerPostalNavidenya");
+            await postalesServices.AltaFelicitacionAsync(input);
+            navigationManager.NavigateTo("PostalNavidenya/VerPostalNavidenya");
+        }
+        catch (Exception ex)
+        {
+            messageStr = "Atención ha habido un problema con el servidor. Por favor intentelo un poco más tarde";
+            log.LogError(ex, null);
+        }
+        finally
+        {
+            isAdding = false;
+        }
     }
 }

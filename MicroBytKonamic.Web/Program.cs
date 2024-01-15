@@ -28,6 +28,7 @@ builder.Services.AddMicrobytKonamic();
 #if USE_MVC
 builder.Services.AddControllersWithViews();
 #elif USE_BLAZORAPP
+builder.Services.AddAntiforgery();
 builder.Services.AddControllers();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();

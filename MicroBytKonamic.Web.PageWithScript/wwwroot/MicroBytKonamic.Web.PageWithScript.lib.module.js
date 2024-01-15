@@ -1,16 +1,16 @@
 const pageScriptInfoBySrc = new Map();
 
-function registerPageScriptElement(src) {
-    if (!src) {
-        throw new Error('Must provide a non-empty value for the "src" attribute.');
-    }
+function registerPageScriptElement(src, params) {
+
 
     let pageScriptInfo = pageScriptInfoBySrc.get(src);
 
     if (pageScriptInfo) {
         pageScriptInfo.referenceCount++;
     } else {
-        pageScriptInfo = { referenceCount: 1, module: null };
+        pageScriptInfo = {
+            referenceCount: 1, module: null, params: params
+        };
         pageScriptInfoBySrc.set(src, pageScriptInfo);
         initializePageScriptModule(src, pageScriptInfo);
     }
@@ -41,7 +41,7 @@ async function initializePageScriptModule(src, pageScriptInfo) {
     }
 
     pageScriptInfo.module = module;
-    module.onLoad?.();
+    module.onLoad?.(pageScriptInfo.params);
     module.onUpdate?.();
 }
 
@@ -58,6 +58,31 @@ function onEnhancedLoad() {
     }
 }
 
+function getQueryParams(qs) {
+    qs = qs.split('+').join(' ');
+
+    var params = {},
+        tokens,
+        re = /[?&]?([^=]+)=([^&]*)/g;
+
+    while (tokens = re.exec(qs)) {
+        params[decodeURIComponent(tokens[1])] = decodeURIComponent(tokens[2]);
+    }
+
+    return params;
+}
+
+function getSrcSplit(src) {
+    if (!src)
+        return {
+            src: src, params: {}
+        };
+    const url = (src.startsWith("./")) ? new URL(src.substr(2), document.baseURI) : new URL(src);
+    const ret = { src: url.origin + url.pathname, params: getQueryParams(url.search) };
+
+    return ret;
+}
+
 export function afterWebStarted(blazor) {
     customElements.define('page-script', class extends HTMLElement {
         static observedAttributes = ['src'];
@@ -67,9 +92,16 @@ export function afterWebStarted(blazor) {
                 return;
             }
 
-            this.src = newValue;
-            unregisterPageScriptElement(oldValue);
-            registerPageScriptElement(newValue);
+            if (!newValue) {
+                throw new Error('Must provide a non-empty value for the "src" attribute.');
+            }
+
+            const unewValue = getSrcSplit(newValue);
+            const uoldValue = getSrcSplit(oldValue);
+
+            this.src = unewValue.src;
+            unregisterPageScriptElement(uoldValue.src);
+            registerPageScriptElement(unewValue.src, unewValue.params);
         }
 
         disconnectedCallback() {

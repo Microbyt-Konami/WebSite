@@ -1,12 +1,12 @@
 ﻿@inject NavigationManager navigationManager
 
 @{
-    var src = navigationManager.GetUriWithQueryParameters(Src, Params);
+    var src = navigationManager.GetUriWithQueryParameters(Src, Params??new());
 }
 
-<page-script src="@Src"></page-script>
+<page-script src="@src"></page-script>
 
 @code {
     [Parameter, EditorRequired] public string Src { get; set; } = default!;
-    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object>? Params { get; set; }
+    [Parameter(CaptureUnmatchedValues = true)] public Dictionary<string, object?>? Params { get; set; }
 }
