@@ -46,16 +46,16 @@ function RunPlayer(params) {
         updateBannerVisibility();
     }
 
-    var buildUrl = "/unity/navidad2023";
-    var loaderUrl = buildUrl + "/webgl.loader.js";
+    var buildUrl = params.buildUrl;
+    var loaderUrl = buildUrl + params.loaderFilename;
     var config = {
-        dataUrl: buildUrl + "/webgl.data",
-        frameworkUrl: buildUrl + "/webgl.framework.js",
-        codeUrl: buildUrl + "/webgl.wasm",
+        dataUrl: buildUrl + params.dataFilename,
+        frameworkUrl: buildUrl + params.frameworkFilename,
+        codeUrl: buildUrl + params.codeFilename,
         streamingAssetsUrl: "StreamingAssets",
         companyName: "MicroBytKonamic",
-        productName: "Navidad2023",
-        productVersion: "0.1",
+        productName: params.productName,
+        productVersion: params.productVersion,
         showBanner: unityShowBanner,
     };
 

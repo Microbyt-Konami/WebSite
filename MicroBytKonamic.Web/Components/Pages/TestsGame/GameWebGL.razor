@@ -1,8 +1,16 @@
-﻿@page "/TestsGame/WebGl"
+﻿@page "/TestsGame/WebGl/{gamename}"
 
 <MKPageTitle Title="Postal navideña" ShowH1="false" />
-<UnityWebGLPlayerPageScript />
+<UnityWebGLPlayerPageScript 
+    BuildUrl=@($"/unity/tests/{Gamename}") 
+    DataFilename=@($"/{Gamename}.data") 
+    LoaderFilename=@($"/{Gamename}.loader.js") 
+    FrameworkFilename=@($"/{Gamename}.framework.js")
+    CodeFilename=@($"/{Gamename}.wasm")
+    ProductName=@Gamename
+    ProductVersion="0.1"
+/>
 
 @code {
-
+    [Parameter] public string? Gamename { get; set; }
 }
