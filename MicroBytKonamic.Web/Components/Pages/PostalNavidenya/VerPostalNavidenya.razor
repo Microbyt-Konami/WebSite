@@ -1,12 +1,8 @@
 ﻿@page "/postalNavidenya/VerPostalNavidenya"
 
 <MKPageTitle Title="Postal navideña" ShowH1="false" />
-<UnityWebGLPlayerPageScript 
-    BuildUrl="/unity/navidad2023" 
-    DataFilename="/webgl.data"  
-    LoaderFilename="/webgl.loader.js" 
-    FrameworkFilename="/webgl.framework.js" 
-    CodeFilename="/webgl.wasm" 
-    ProductName="Navidad 2023"
-    ProductVersion="0.1"
-/>
+<UnityWebGLPlayerPageScript UseIndexJson=true BuildUrl="/unity/navidad2023">
+    <TitleContent>
+        <PostalNavUrlSharedSocial></PostalNavUrlSharedSocial>
+    </TitleContent>
+</UnityWebGLPlayerPageScript>

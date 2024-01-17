@@ -51,13 +51,22 @@ function RunPlayer(params) {
     var config = {
         dataUrl: buildUrl + params.dataFilename,
         frameworkUrl: buildUrl + params.frameworkFilename,
-        codeUrl: buildUrl + params.codeFilename,
         streamingAssetsUrl: "StreamingAssets",
         companyName: "MicroBytKonamic",
         productName: params.productName,
         productVersion: params.productVersion,
         showBanner: unityShowBanner,
     };
+
+
+    if (params.workerFilename)
+        config.workerUrl = buildUrl + params.workerFilename;
+    if (params.codeFilename)
+        config.codeUrl = buildUrl + params.codeFilename;
+    if (params.memoryFilename)
+        config.memoryUrl = buildUrl + params.memoryFilename;
+    if (params.symbolsFilename)
+        config.symbolsUrl = buildUrl + params.symbolsFilename;
 
     // By default, Unity keeps WebGL canvas render target size matched with
     // the DOM size of the canvas element (scaled by window.devicePixelRatio)
@@ -84,10 +93,17 @@ function RunPlayer(params) {
     } else {
         // Desktop style: Render the game canvas in a window that can be maximized to fullscreen:
 
-        canvas.style.width = "1024px";
-        canvas.style.height = "768px";
+        if (params.width)
+            canvas.style.width = params.width + "px";
+        else
+            canvas.style.width = "1024px";
+        if (params.height)
+            canvas.style.height = params.height + "px";
+        else
+            canvas.style.height = "768px";
     }
-
+    if (params.backGroundFilename)
+        canvas.style.background = "url('" + buildUrl + params.backGroundFilename.replace(/'/g, '%27') + "') center / cover";
     loadingBar.style.display = "block";
 
     var script = document.createElement("script");
