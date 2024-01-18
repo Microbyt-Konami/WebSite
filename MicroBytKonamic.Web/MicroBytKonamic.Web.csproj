@@ -15,14 +15,6 @@
 		<Copyright>© 2023-4 - MicroBy Konamic</Copyright>
 	</PropertyGroup>
 
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-		<DefineConstants>$(DefineConstants);USE_BLAZORAPP</DefineConstants>
-	</PropertyGroup>
-
-	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-		<DefineConstants>$(DefineConstants);USE_BLAZORAPP</DefineConstants>
-	</PropertyGroup>
-
 	<ItemGroup>
 		<ProjectReference Include="..\MicroBytKonamic.Application\MicroBytKonamic.Application.csproj" />
 		<ProjectReference Include="..\MicroBytKonamic.Commom\MicroBytKonamic.Commom.csproj" />

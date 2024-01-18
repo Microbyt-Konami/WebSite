@@ -1,5 +1,6 @@
 ﻿@using System.Text.Json
 @inject IWebHostEnvironment hostEnv
+@inject ILogger<UnityWebGLPlayerPageScript> log;
 
 @if (errores.Count == 0)
 {
@@ -103,9 +104,10 @@ else
 
     private async Task LoadIndexJsonAsync()
     {
-        var url = $"{BuildUrl}/index.json".Replace('/', '\\');
+        var url = $"{BuildUrl}/index.json".Replace('/', Path.DirectorySeparatorChar);
         var file = hostEnv.WebRootPath + url;
 
+        log.LogInformation(file);
         if (File.Exists(file))
         {
             using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read))
