@@ -17,6 +17,7 @@
 	<ItemGroup>
 		<ProjectReference Include="..\MicroBytKonamic.Application\MicroBytKonamic.Application.csproj" />
 		<ProjectReference Include="..\MicroBytKonamic.Commom\MicroBytKonamic.Commom.csproj" />
+		<ProjectReference Include="..\MicroBytKonamic.Web.PageWithScript\MicroBytKonamic.Web.PageWithScript.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
