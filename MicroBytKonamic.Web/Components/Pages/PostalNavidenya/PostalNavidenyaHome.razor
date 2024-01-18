@@ -11,33 +11,40 @@
 
 <div class="container">
     <div class="row">
-        <fieldset class="border rounded-3 p-3">
-            <legend class="float-none w-auto px-3">Añada su felicitación y vea las demás felicitaciones</legend>
-            <EditForm @ref="form" class="manage-post-form" FormName="Felicitacion" Model="Postal" OnValidSubmit="OnValidSubmit">
-                @if (!string.IsNullOrEmpty(messageStr))
-                {
-                    <Alerts AlertType=@AlertsTypes.Danger>@messageStr</Alerts>
-                    @* <div class="alert alert-danger" role="alert">@messageStr</div> *@
-                }
-                <DataAnnotationsValidator />
-                @* @Html.AntiForgeryToken() *@
-                @* En el caso de los formularios basados en EditForm, el componente AntiforgeryToken y el atributo [RequireAntiforgeryToken] se agregan automáticamente para proporcionar protección antiforgería de forma predeterminada. *@
-                @* <AntiforgeryToken /> *@
-                @* <input type="hidden" name="Fecha" id="fecha" @bind-value="Postal!.Fecha" /> *@
-                <InputHiddenUtcNow Change="d=>Postal!.Fecha=d" />
-                <div class="form-group">
-                    <label for="Nick"></label> <ValidationMessage For="() => Postal!.Nick" />
-                    <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="Postal!.Nick" />
-                </div>
-                <div class="form-group">
-                    <label asp-for="Felicitacion"></label> <ValidationMessage For="() => Postal!.Felicitacion" />
-                    <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="Postal!.Felicitacion" />
-                </div>
-                <div class="form-group">
-                    <input type="submit" value="Añadir felicitación y Ver postal" disabled="@isAdding" class="btn btn-primary btn-lg" />
-                </div>
-            </EditForm>
-        </fieldset>
+        @if (postalesServices.EsNavidad(DateTime.Now))
+        {
+            <fieldset class="border rounded-3 p-3">
+                <legend class="float-none w-auto px-3">Añada su felicitación y vea las demás felicitaciones</legend>
+                <EditForm @ref="form" class="manage-post-form" FormName="Felicitacion" Model="Postal" OnValidSubmit="OnValidSubmit">
+                    @if (!string.IsNullOrEmpty(messageStr))
+                    {
+                        <Alerts AlertType=@AlertsTypes.Danger>@messageStr</Alerts>
+                        @* <div class="alert alert-danger" role="alert">@messageStr</div> *@
+                    }
+                    <DataAnnotationsValidator />
+                    @* @Html.AntiForgeryToken() *@
+                    @* En el caso de los formularios basados en EditForm, el componente AntiforgeryToken y el atributo [RequireAntiforgeryToken] se agregan automáticamente para proporcionar protección antiforgería de forma predeterminada. *@
+                    @* <AntiforgeryToken /> *@
+                    @* <input type="hidden" name="Fecha" id="fecha" @bind-value="Postal!.Fecha" /> *@
+                    <InputHiddenUtcNow Change="d=>Postal!.Fecha=d" />
+                    <div class="form-group">
+                        <label for="Nick"></label> <ValidationMessage For="() => Postal!.Nick" />
+                        <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="Postal!.Nick" />
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Felicitacion"></label> <ValidationMessage For="() => Postal!.Felicitacion" />
+                        <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="Postal!.Felicitacion" />
+                    </div>
+                    <div class="form-group">
+                        <input type="submit" value="Añadir felicitación y Ver postal" disabled="@isAdding" class="btn btn-primary btn-lg" />
+                    </div>
+                </EditForm>
+            </fieldset>
+        }
+        else
+        {
+            <Alerts AlertType=@AlertsTypes.Info>No se puede añadir más postales hasta que sea Navidad</Alerts>
+        }
     </div>
     <div class="row">
         <a href="PostalNavidenya/VerPostalNavidenya" class="btn btn-outline-secondary btn-lg">Ver postal navideña</a>

@@ -1,16 +1,20 @@
-﻿namespace MicroBytKonamic.Application.Services;
+﻿using Microsoft.Extensions.Configuration;
+
+namespace MicroBytKonamic.Application.Services;
 
 internal class PostalesServices : IPostalesServices
 {
     private readonly MicrobytkonamicContext _dbContext;
     private readonly IMapper _mapper;
     private readonly IResourcesServices _resourcesServices;
+    private readonly IConfiguration _configuration;
 
-    public PostalesServices(MicrobytkonamicContext dbContext, IMapper mapper, IResourcesServices resourcesServices)
+    public PostalesServices(MicrobytkonamicContext dbContext, IMapper mapper, IResourcesServices resourcesServices, IConfiguration configuration)
     {
         _dbContext = dbContext;
         _mapper = mapper;
         _resourcesServices = resourcesServices;
+        _configuration = configuration;
     }
 
     public int CalcAnyo(DateTime date)
@@ -19,6 +23,24 @@ internal class PostalesServices : IPostalesServices
         var year = month switch { 12 => date.Year, _ => date.Year - 1 };
 
         return year;
+    }
+
+    public bool EsNavidad(DateTime date)
+    {
+        string cfgStr = _configuration["ShowFrmNuevaPostal"];
+
+        if (cfgStr != null && bool.TryParse(cfgStr, out var showFrmNuevaPostal))
+            return showFrmNuevaPostal;
+
+        var month = date.Month;
+        var day = date.Day;
+
+        return month switch
+        {
+            1 => day <= 7,
+            12 => day >= 20,
+            _ => false
+        };
     }
 
     public async Task<GetFelicitacionResult> GetFelicitacionAsync(GetFelicitacionIn input)
