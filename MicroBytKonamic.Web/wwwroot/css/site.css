@@ -4,26 +4,26 @@
 }
 
 html {
-  font-size: 14px;
+    font-size: 14px;
 }
 
 @media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
+    html {
+        font-size: 16px;
+    }
 }
 
 .btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
 }
 
 html {
-  position: relative;
-  min-height: 100%;
+    position: relative;
+    min-height: 100%;
 }
 
 body {
-  margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .site-header-logo {
@@ -58,6 +58,28 @@ body {
     color: red;
     font-weight: normal;
     margin: 0;
+}
+
+.text-nombre1 {
+    font-size: 23px;
+    color: black;
+    font-weight: bold;
+}
+
+.text-nombre2 {
+    font-size: 23px;
+    color: red;
+    font-weight: normal;
+}
+
+.text-nombre11 {
+    color: black;
+    font-weight: bold;
+}
+
+.text-nombre21 {
+    color: red;
+    font-weight: normal;
 }
 
 #unity-container {
