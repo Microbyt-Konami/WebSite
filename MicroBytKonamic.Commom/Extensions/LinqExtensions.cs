@@ -14,7 +14,7 @@ public static class LinqExtensions
 
         foreach (var p in col)
         {
-            hc ^= p.GetHashCode();
+            hc ^= p!.GetHashCode();
             hc = (hc << 7) | (hc >> (32 - 7)); //rotale hc to the left to swipe over all bits
         }
         return hc;

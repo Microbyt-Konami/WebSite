@@ -1,0 +1,8 @@
+﻿@page "/TestsGame/WebGl/{gamename}"
+
+<MKPageTitle Title="Postal navideña" ShowH1="false" />
+<UnityWebGLPlayerPageScript UseIndexJson=true BuildUrl=@($"/unity/tests/{Gamename}") />
+
+@code {
+    [Parameter] public string? Gamename { get; set; }
+}

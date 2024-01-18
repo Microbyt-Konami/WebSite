@@ -1,6 +1,7 @@
 //using Microsoft.AspNetCore.ResponseCompression;
 //using System.IO.Compression;
 
+using MicroBytKonamic.Web.Components;
 using MicroBytKonamic.Web.Services;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,7 +22,10 @@ builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
 builder.Services.AddMicrobytKonamic();
 
 // Add services to the container.
-builder.Services.AddControllersWithViews();
+builder.Services.AddAntiforgery();
+builder.Services.AddControllers();
+builder.Services.AddRazorComponents()
+    .AddInteractiveServerComponents();
 builder.Services.AddProblemDetails();
 
 var app = builder.Build();
@@ -46,13 +50,13 @@ app.UseStaticFiles(new StaticFileOptions()
 {
     ContentTypeProvider = provider
 });
-
 app.UseRouting();
+app.UseAntiforgery();
 
 app.UseAuthorization();
 
-app.MapControllerRoute(
-    name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}");
+app.MapControllers();
+app.MapRazorComponents<App>()
+    .AddInteractiveServerRenderMode();
 
 app.Run();

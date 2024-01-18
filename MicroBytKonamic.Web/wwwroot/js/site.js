@@ -7,3 +7,7 @@ function genericSocialShare(url) {
     window.open(url, 'sharer', 'toolbar=0,status=0,width=648,height=395');
     return true;
 }
+
+function getDateToUTCString() {
+    return new Date().toUTCString();
+}

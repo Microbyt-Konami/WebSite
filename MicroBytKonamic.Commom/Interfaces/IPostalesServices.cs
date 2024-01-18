@@ -9,6 +9,7 @@ namespace MicroBytKonamic.Commom.Interfaces;
 public interface IPostalesServices
 {
     int CalcAnyo(DateTime date);
+    bool EsNavidad(DateTime date);
     Task<GetFelicitacionResult> GetFelicitacionAsync(GetFelicitacionIn input);
     Task<IntegerIntervals> AltaFelicitacionAsync(AltaFelicitacionIn input, CancellationToken cancellationToken = default);
     Task<byte[]> ReadMP3NavidadAsync();

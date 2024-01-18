@@ -1,0 +1,19 @@
+﻿@inject IJSRuntime js;
+
+<input type="hidden" name="Fecha" id="fecha" value="@Value" />
+
+@code {
+    [Parameter] public DateTime? Value { get; set; }
+    [Parameter] public EventCallback<DateTime> Change { get; set; }
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            var dateUTCStr = await js.InvokeAsync<string>("getDateToUTCString");
+
+            Value = DateTime.Parse(dateUTCStr);
+            await Change.InvokeAsync(Value.Value);
+        }
+    }
+}

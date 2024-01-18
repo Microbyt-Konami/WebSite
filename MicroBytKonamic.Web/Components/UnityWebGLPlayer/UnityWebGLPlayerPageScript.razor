@@ -1,0 +1,152 @@
+﻿@using System.Text.Json
+@inject IWebHostEnvironment hostEnv
+@inject ILogger<UnityWebGLPlayerPageScript> log;
+
+@if (errores.Count == 0)
+{
+    <PageScript Src="./Components/UnityWebGLPlayer/UnityWebGLPlayerPageScript.razor.js" Params=@_params></PageScript>
+
+    @ChildContent
+    <div id="unity-container" class="unity-desktop">
+        <div id="unity-fullscreen-button">
+        </div>
+        <div id="unity-build-title">
+            @if (TitleContent != null)
+            {
+                @TitleContent
+            }
+            else
+            {
+                @_params?.GetValueOrDefault("productName")
+            }
+        </div>
+        <canvas id="unity-canvas" width=1024 height=768 tabindex="-1"></canvas>
+        <div id="unity-loading-bar">
+            <div id="unity-logo"></div>
+            <div id="unity-progress-bar-empty">
+                <div id="unity-progress-bar-full"></div>
+            </div>
+        </div>
+        <div id="unity-warning"> </div>
+        @* <div id="unity-footer">
+    <div id="unity-webgl-logo"></div>
+    <div id="unity-fullscreen-button"></div>
+    <div id="unity-build-title">Navidad2023</div>
+    </div> *@
+    </div>
+}
+else
+{
+    <div class="alert alert-danger" role="alert">
+        <ul>
+            @foreach (var error in errores)
+            {
+                <li>@error</li>
+            }
+        </ul>
+    </div>
+}
+
+@code
+{
+    [Parameter] public bool UseIndexJson { get; set; }
+    [Parameter] public string? BuildUrl { get; set; }
+    [Parameter] public Json.IndexJson? IndexJson { get; set; }
+    [Parameter] public RenderFragment? ChildContent { get; set; }
+    [Parameter] public RenderFragment? TitleContent { get; set; }
+
+    private Dictionary<string, object>? _params;
+    private List<string> errores = new();
+    private Json.IndexJson? indexJsonLoaded;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        errores.Clear();
+
+        try
+        {
+            _params ??= new Dictionary<string, object>();
+
+            if (!string.IsNullOrWhiteSpace(BuildUrl))
+                _params["buildUrl"] = BuildUrl;
+            else
+            {
+                errores.Add($"{nameof(BuildUrl)} is required");
+
+                return;
+            }
+            if (UseIndexJson)
+                if (indexJsonLoaded == null)
+                    await LoadIndexJsonAsync();
+
+            if (indexJsonLoaded != null)
+                SetParams(_params, indexJsonLoaded);
+            if (IndexJson != null)
+                SetParams(_params, IndexJson);
+            if (!_params.ContainsKey("dataFilename"))
+                errores.Add($"{nameof(IndexJson.config.dataFilename)} is required");
+            if (!_params.ContainsKey("loaderFilename"))
+                errores.Add($"{nameof(IndexJson.loaderFilename)} is required");
+            if (!_params.ContainsKey("frameworkFilename"))
+                //     errores.Add($"{nameof(IndexJson.config.frameworkFilename)} is required");
+                // if (!_params.ContainsKey("codeFilename"))
+                //     errores.Add($"{nameof(IndexJson.config.codeFilename)} is required");
+                if (!_params.ContainsKey("productName"))
+                    errores.Add($"{nameof(IndexJson.config.productName)} is required");
+            if (!_params.ContainsKey("productVersion"))
+                errores.Add($"{nameof(IndexJson.config.productVersion)} is required");
+        }
+        catch (Exception ex)
+        {
+            errores.Add($"Exception: {ex.Message}");
+        }
+    }
+
+    private async Task LoadIndexJsonAsync()
+    {
+        var url = $"{BuildUrl}/index.json".Replace('/', Path.DirectorySeparatorChar);
+        var file = hostEnv.WebRootPath + url;
+
+        log.LogInformation(file);
+        if (File.Exists(file))
+        {
+            using (var stream = new FileStream(file, FileMode.Open, FileAccess.Read))
+            {
+                indexJsonLoaded = await JsonSerializer.DeserializeAsync<Json.IndexJson>(stream);
+            }
+        }
+    }
+
+    private void SetParams(Dictionary<string, object> _params, Json.IndexJson indexJson)
+    {
+        if (indexJson.showDiagnostics.HasValue)
+            _params["showDiagnostics"] = indexJson.showDiagnostics;
+        if (!string.IsNullOrWhiteSpace(indexJson.loaderFilename))
+            _params["loaderFilename"] = indexJson.loaderFilename;
+        if (!string.IsNullOrWhiteSpace(indexJson.backGroundFilename))
+            _params["backGroundFilename"] = indexJson.backGroundFilename;
+        if (indexJson.width.HasValue)
+            _params["width"] = indexJson.width;
+        if (indexJson.height.HasValue)
+            _params["height"] = indexJson.height;
+
+        var config = indexJson.config;
+
+        if (config != null)
+        {
+            if (!string.IsNullOrWhiteSpace(config.dataFilename))
+                _params["dataFilename"] = config.dataFilename;
+            if (!string.IsNullOrWhiteSpace(config.frameworkFilename))
+                _params["frameworkFilename"] = config.frameworkFilename;
+            if (!string.IsNullOrWhiteSpace(config.workerFilename))
+                _params["workerFilename"] = config.workerFilename;
+            if (!string.IsNullOrWhiteSpace(config.codeFilename))
+                _params["codeFilename"] = config.codeFilename;
+            if (!string.IsNullOrWhiteSpace(config.productName))
+                _params["productName"] = config.productName;
+            if (!string.IsNullOrWhiteSpace(config.productVersion))
+                _params["productVersion"] = config.productVersion;
+        }
+
+    }
+}
