@@ -21,9 +21,12 @@
             }
         </div>
         <canvas id="unity-canvas" width=1024 height=768 tabindex="-1"></canvas>
+        @if (ShowRunGameButton)
+        {
+            <button id="unity-rungame-button">Run Game</button>
+        }
         <div id="unity-loading-bar">
             <div id="unity-logo"></div>
-            <div id="unity-rungame-button"></div>
             <div id="unity-progress-bar-empty">
                 <div id="unity-progress-bar-full"></div>
             </div>
@@ -84,7 +87,7 @@ else
             if (_params.ContainsKey("showRunGameButton"))
             {
                 if (!ShowRunGameButton)
-                    _params.Remove("showRunGameButton")
+                    _params.Remove("showRunGameButton");
             }
             else if (ShowRunGameButton)
                 _params["showRunGameButton"] = true;

@@ -1,7 +1,7 @@
 var _unityInstance = null;
 
 export function onLoad(params) {
-    RunPlayer(params);
+    runPlayer(params);
 }
 
 export function onUpdate() {
@@ -13,13 +13,14 @@ export function onDispose() {
         _unityInstance.Quit();
 }
 
-function RunPlayer(params) {
+function runPlayer(params) {
     //alert(params.p)
     var container = document.querySelector("#unity-container");
     var canvas = document.querySelector("#unity-canvas");
     var loadingBar = document.querySelector("#unity-loading-bar");
     var progressBarFull = document.querySelector("#unity-progress-bar-full");
     var fullscreenButton = document.querySelector("#unity-fullscreen-button");
+    var rungameButton = document.querySelector("#unity-rungame-button");
     var warningBanner = document.querySelector("#unity-warning");
 
     // Shows a temporary message banner/ribbon for a few seconds, or
@@ -57,7 +58,6 @@ function RunPlayer(params) {
         productVersion: params.productVersion,
         showBanner: unityShowBanner,
     };
-
 
     if (params.workerFilename)
         config.workerUrl = buildUrl + params.workerFilename;
@@ -102,25 +102,35 @@ function RunPlayer(params) {
         else
             canvas.style.height = "768px";
     }
-    if (params.backGroundFilename)
-        canvas.style.background = "url('" + buildUrl + params.backGroundFilename.replace(/'/g, '%27') + "') center / cover";
-    loadingBar.style.display = "block";
 
-    var script = document.createElement("script");
-    script.src = loaderUrl;
-    script.onload = () => {
-        createUnityInstance(canvas, config, (progress) => {
-            progressBarFull.style.width = 100 * progress + "%";
-        }).then((unityInstance) => {
-            _unityInstance = unityInstance;
-            loadingBar.style.display = "none";
-            fullscreenButton.onclick = () => {
-                unityInstance.SetFullscreen(1);
-            };
-        }).catch((message) => {
-            alert(message);
-        });
-    };
+    if (params.showRunGameButton) {
+        rungameButton.style.display = "block";
+        rungameButton.onclick = runGame;
+    }
+    else runGame();
 
-    document.body.appendChild(script);
+    function runGame() {
+        if (params.backGroundFilename)
+            canvas.style.background = "url('" + buildUrl + params.backGroundFilename.replace(/'/g, '%27') + "') center / cover";
+        loadingBar.style.display = "block";
+
+        var script = document.createElement("script");
+
+        script.src = loaderUrl;
+        script.onload = () => {
+            createUnityInstance(canvas, config, (progress) => {
+                progressBarFull.style.width = 100 * progress + "%";
+            }).then((unityInstance) => {
+                _unityInstance = unityInstance;
+                loadingBar.style.display = "none";
+                fullscreenButton.onclick = () => {
+                    unityInstance.SetFullscreen(1);
+                };
+            }).catch((message) => {
+                alert(message);
+            });
+        };
+
+        document.body.appendChild(script);
+    }
 }
