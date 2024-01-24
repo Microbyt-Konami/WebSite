@@ -22,6 +22,7 @@ function runPlayer(params) {
     var fullscreenButton = document.querySelector("#unity-fullscreen-button");
     var rungameButton = document.querySelector("#unity-rungame-button");
     var warningBanner = document.querySelector("#unity-warning");
+    var warningBanner = document.querySelector("#unity-warning");
 
     // Shows a temporary message banner/ribbon for a few seconds, or
     // a permanent error message on top of the canvas if type=='error'.
@@ -105,9 +106,18 @@ function runPlayer(params) {
 
     if (params.showRunGameButton) {
         rungameButton.style.display = "block";
-        rungameButton.onclick = runGame;
+        rungameButton.onclick = () => {
+            rungameButton.style.display = "none";
+            //if (canvas.className == "unity-mobile")
+            prepareScreenMobile(true, "landscape");
+            runGame();
+        };
     }
     else runGame();
+
+    function prepareScreenMobile(fullScreen, orientation) {
+
+    }
 
     function runGame() {
         if (params.backGroundFilename)
@@ -118,10 +128,19 @@ function runPlayer(params) {
 
         script.src = loaderUrl;
         script.onload = () => {
+            if (params.showRunGameButton && canvas.className == "unity-mobile") {
+                if ("wakeLock" in navigator)
+                    navigator.wakeLock.request("screen");
+                //unityInstance.SetFullscreen(1);
+                screen.orientation.lock("landscape");
+            }
             createUnityInstance(canvas, config, (progress) => {
                 progressBarFull.style.width = 100 * progress + "%";
             }).then((unityInstance) => {
                 _unityInstance = unityInstance;
+                if (params.showRunGameButton && canvas.className == "unity-mobile") {
+                    unityInstance.SetFullscreen(1);
+                }
                 loadingBar.style.display = "none";
                 fullscreenButton.onclick = () => {
                     unityInstance.SetFullscreen(1);
