@@ -20,14 +20,20 @@
                 @_params?.GetValueOrDefault("productName")
             }
         </div>
-        <canvas id="unity-canvas" width=1024 height=768 tabindex="-1"></canvas>
-        <div id="unity-loading-bar">
-            <div id="unity-logo"></div>
-            <div id="unity-progress-bar-empty">
-                <div id="unity-progress-bar-full"></div>
+        <div id="unity-container-game">
+            @if (ShowRunGameButton)
+            {
+                <button id="unity-rungame-button">Run Game</button>
+            }
+            <canvas id="unity-canvas" width=1024 height=768 tabindex="-1"></canvas>
+            <div id="unity-loading-bar">
+                <div id="unity-logo"></div>
+                <div id="unity-progress-bar-empty">
+                    <div id="unity-progress-bar-full"></div>
+                </div>
             </div>
+            <div id="unity-warning"> </div>
         </div>
-        <div id="unity-warning"> </div>
         @* <div id="unity-footer">
     <div id="unity-webgl-logo"></div>
     <div id="unity-fullscreen-button"></div>
@@ -50,6 +56,7 @@ else
 @code
 {
     [Parameter] public bool UseIndexJson { get; set; }
+    [Parameter] public bool ShowRunGameButton { get; set; }
     [Parameter] public string? BuildUrl { get; set; }
     [Parameter] public Json.IndexJson? IndexJson { get; set; }
     [Parameter] public RenderFragment? ChildContent { get; set; }
@@ -79,6 +86,14 @@ else
                 if (indexJsonLoaded == null)
                     await LoadIndexJsonAsync();
 
+            if (_params.ContainsKey("showRunGameButton"))
+            {
+                if (!ShowRunGameButton)
+                    _params.Remove("showRunGameButton");
+            }
+            else if (ShowRunGameButton)
+                _params["showRunGameButton"] = true;
+
             if (indexJsonLoaded != null)
                 SetParams(_params, indexJsonLoaded);
             if (IndexJson != null)
@@ -88,11 +103,11 @@ else
             if (!_params.ContainsKey("loaderFilename"))
                 errores.Add($"{nameof(IndexJson.loaderFilename)} is required");
             if (!_params.ContainsKey("frameworkFilename"))
-                //     errores.Add($"{nameof(IndexJson.config.frameworkFilename)} is required");
-                // if (!_params.ContainsKey("codeFilename"))
-                //     errores.Add($"{nameof(IndexJson.config.codeFilename)} is required");
-                if (!_params.ContainsKey("productName"))
-                    errores.Add($"{nameof(IndexJson.config.productName)} is required");
+                errores.Add($"{nameof(IndexJson.config.frameworkFilename)} is required");
+            if (!_params.ContainsKey("codeFilename"))
+                errores.Add($"{nameof(IndexJson.config.codeFilename)} is required");
+            if (!_params.ContainsKey("productName"))
+                errores.Add($"{nameof(IndexJson.config.productName)} is required");
             if (!_params.ContainsKey("productVersion"))
                 errores.Add($"{nameof(IndexJson.config.productVersion)} is required");
         }
