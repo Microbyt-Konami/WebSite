@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Localization;
 
 namespace MicroBytKonamic.Application.Services;
 
@@ -8,13 +9,15 @@ internal class PostalesServices : IPostalesServices
     private readonly IMapper _mapper;
     private readonly IResourcesServices _resourcesServices;
     private readonly IConfiguration _configuration;
+    private readonly IStringLocalizer _localizer;
 
-    public PostalesServices(MicrobytkonamicContext dbContext, IMapper mapper, IResourcesServices resourcesServices, IConfiguration configuration)
+    public PostalesServices(MicrobytkonamicContext dbContext, IMapper mapper, IResourcesServices resourcesServices, IConfiguration configuration, IStringLocalizer<SharedResource> localizer)
     {
         _dbContext = dbContext;
         _mapper = mapper;
         _resourcesServices = resourcesServices;
         _configuration = configuration;
+        _localizer = localizer;
     }
 
     public int CalcAnyo(DateTime date)
@@ -27,7 +30,7 @@ internal class PostalesServices : IPostalesServices
 
     public bool EsNavidad(DateTime date)
     {
-        string cfgStr = _configuration["ShowFrmNuevaPostal"];
+        string? cfgStr = _configuration["ShowFrmNuevaPostal"];
 
         if (cfgStr != null && bool.TryParse(cfgStr, out var showFrmNuevaPostal))
             return showFrmNuevaPostal;
@@ -44,6 +47,16 @@ internal class PostalesServices : IPostalesServices
     }
 
     public async Task<GetFelicitacionResult> GetFelicitacionAsync(GetFelicitacionIn input)
+    //=> await Task.Run(() => new GetFelicitacionResult
+    //{
+    //    Intervals = new(),
+    //    FelicitacionDto = new()
+    //    {
+    //        Nick = "dd",
+    //        Fecha = DateTime.Now,
+    //        Texto = _localizer["NickRequired"]
+    //    }
+    //});
     {
         FelicitacionDto? dto = null;
         IQueryable<Postale> query = from p in _dbContext.Postales where p.Anyo == input.Anyo orderby p.IdPostales descending select p;
