@@ -26,6 +26,18 @@ body {
     margin-bottom: 60px;
 }
 
+a {
+    color: #256299;
+}
+
+    a:hover {
+        text-decoration: none;
+    }
+
+.notfound {
+    margin-top: 5rem;
+}
+
 .site-header-logo {
     font-size: 30px;
     background-color: red;
