@@ -1,0 +1,18 @@
+﻿@page "/StatusCode/{code:int}"
+
+<div class="text-center notfound">
+    @if (Code != 404)
+    {
+        <h3>StatusCode @Code</h3>
+    }
+    else
+    {
+        <h1>☹ Página no encontrada</h1>
+        <p>Lo sentimos, no pudimos encontrar esa página.</p>
+    }
+    <a href="">Ir página principal</a>
+</div>
+
+@code {
+    [Parameter] public int? Code { get; set; }
+}
