@@ -1,6 +1,7 @@
 ﻿@page "/about"
+@inject IStringLocalizer<SharedResource> shLoc
 
-<MKPageTitle Title="Acerca de" />
+<MKPageTitle Title=@shLoc["AboutNamePage"] />
 
 <div class="content">
     <div class="row">

@@ -1,6 +1,6 @@
 ﻿@using System.Reflection
 @inherits LayoutComponentBase
-@inject IStringLocalizer<MainLayout> loc
+@inject IStringLocalizer<SharedResource> shLoc
 
 @{
     var assembly = Assembly.GetEntryAssembly()!;
@@ -13,7 +13,7 @@
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <MKLink class="navbar-brand" href="">
                 <span class="site-header-logo d-none d-sm-none d-md-inline-block"><span class="fas fa-code" style="font-family: 'zx';"></span>MK</span>
                 <span class="site-header-text">
                     <span class="site-header-title">
@@ -21,7 +21,7 @@
                         <span class="site-header-title-extra">Konami</span>
                     </span>
                 </span>
-            </a>
+            </MKLink>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
@@ -29,10 +29,10 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="">@loc["HomeNamePage"]</a>
+                        <MKLink class="nav-link text-dark" href="">@shLoc["HomeNamePage"]</MKLink>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="about">Acerca de</a>
+                        <MKLink class="nav-link text-dark" href="about">@shLoc["AboutNamePage"]</MKLink>
                     </li>
                     @*  <li class="nav-item">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">

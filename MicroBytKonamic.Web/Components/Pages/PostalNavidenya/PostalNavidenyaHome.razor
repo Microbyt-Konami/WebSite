@@ -3,11 +3,14 @@
 
 @page "/PostalNavidenya"
 @rendermode InteractiveServer
+@inject IStringLocalizer<SharedResource> shLoc
 @inject IPostalesServices postalesServices
 @inject NavigationManager navigationManager
-@inject ILogger<PostalNavidenyaHome> log;
+@inject ILogger<PostalNavidenyaHome> log
 
-<MKPageTitle Title="Postal navideña" />
+<CultureInterativeUrlQuery @rendermode="InteractiveServer" />
+
+<MKPageTitle Title=@shLoc["ChristmasCarNamePage"] />
 
 <div class="container">
     <div class="row">
@@ -33,7 +36,7 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Felicitacion"></label> <ValidationMessage For="() => Postal!.Felicitacion" />
-                        <InputText class="form-control" placeholder="Introduce tu nick" @bind-Value="Postal!.Felicitacion" />
+                        <InputText class="form-control" placeholder="Introduce tu Felicitacion" @bind-Value="Postal!.Felicitacion" />
                     </div>
                     <div class="form-group">
                         <input type="submit" value="Añadir felicitación y Ver postal" disabled="@isAdding" class="btn btn-primary btn-lg" />

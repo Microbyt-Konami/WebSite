@@ -88,10 +88,10 @@ internal class PostalesServices : IPostalesServices
             throw new ArgumentNullException("Fecha is null");
 
         if (string.IsNullOrWhiteSpace(input.FelicitacionDto.Nick))
-            throw new MBException("el nick es obligatorio");
+            throw new ArgumentNullException("el nick es obligatorio");
 
         if (string.IsNullOrWhiteSpace(input.FelicitacionDto.Texto))
-            throw new MBException("el texto es obligatorio");
+            throw new ArgumentNullException("el texto es obligatorio");
 
         var postal = _mapper.Map<Postale>(input.FelicitacionDto);
 
