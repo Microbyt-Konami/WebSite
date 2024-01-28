@@ -126,4 +126,7 @@
   <data name="ChristmasCarNamePage" xml:space="preserve">
     <value>Christmas card</value>
   </data>
+  <data name="LanguageTitle" xml:space="preserve">
+    <value>Language</value>
+  </data>
 </root>

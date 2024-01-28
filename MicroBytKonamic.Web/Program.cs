@@ -3,12 +3,6 @@
 
 using MicroBytKonamic.Web.Components;
 using MicroBytKonamic.Web.Services;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.Hosting;
-using Microsoft.JSInterop;
-using System.Net.Http;
-using System.Text.RegularExpressions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -67,49 +61,8 @@ var locOptions = new RequestLocalizationOptions()
     .SetDefaultCulture("en")
     .AddSupportedCultures(supportedCultures)
     .AddSupportedUICultures(supportedCultures);
-locOptions.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(ctx =>
-{
-    var request = ctx.Request;
 
-    if (request.Path.StartsWithSegments("/_blazor"))
-    {
-        //return Task.FromResult(new ProviderCultureResult("en"))!;
-        var cookie = ctx.Request.Cookies[CookieRequestCultureProvider.DefaultCookieName];
-
-        if (cookie == null)
-            return Task.FromResult((ProviderCultureResult?)null);
-
-        var providerResultCulture = CookieRequestCultureProvider.ParseCookieValue(cookie);
-
-        return Task.FromResult<ProviderCultureResult?>(providerResultCulture);
-    }
-
-    string? culture;
-    string? UIculture;
-    var queryCulture = request.Query["culture"];
-
-    if (!string.IsNullOrWhiteSpace(queryCulture))
-        culture = queryCulture;
-    else
-    {
-        var queryUICulture = request.Query["ui-culture"];
-
-        if (!string.IsNullOrWhiteSpace(queryUICulture))
-            culture = queryUICulture;
-        else
-        {
-            var acceptLanguageHeader = request.GetTypedHeaders().AcceptLanguage;
-            culture=
-        }
-    }
-
-    if (culture!=null)
-    {
-
-    }
-
-    return Task.FromResult((ProviderCultureResult?)null);
-}));
+//locOptions.AddInitialRequestCultureProvider(new InterativeCultureProvider());
 //locOptions.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(ctx =>
 //{
 //    var culture = ctx.Request.Cookies["lang"] ?? "en";
@@ -127,3 +80,5 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+
