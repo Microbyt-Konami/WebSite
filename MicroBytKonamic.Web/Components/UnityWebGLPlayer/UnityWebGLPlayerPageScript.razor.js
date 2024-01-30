@@ -48,12 +48,13 @@ function runPlayer(params) {
         updateBannerVisibility();
     }
 
+    var culture = params.culture;
     var buildUrl = params.buildUrl;
     var loaderUrl = buildUrl + params.loaderFilename;
     var config = {
         dataUrl: buildUrl + params.dataFilename,
         frameworkUrl: buildUrl + params.frameworkFilename,
-        streamingAssetsUrl: "StreamingAssets",
+        streamingAssetsUrl: buildUrl + "/StreamingAssets",
         companyName: "MicroBytKonamic",
         productName: params.productName,
         productVersion: params.productVersion,
@@ -135,6 +136,16 @@ function runPlayer(params) {
                 progressBarFull.style.width = 100 * progress + "%";
             }).then((unityInstance) => {
                 _unityInstance = unityInstance;
+                //if (culture) {
+                //    if (_unityInstance.Module) {
+                //        unityInstance.Module.__culture = culture;
+                //        unityInstance.Module.getCulture = function () {
+                //            return Module.__culture;
+                //        }
+                //    }
+                //}
+                if (culture)
+                    _unityInstance.SendMessage("Localization", "SetCulture", culture)
                 loadingBar.style.display = "none";
                 fullscreenButton.onclick = () => {
                     unityInstance.SetFullscreen(1);

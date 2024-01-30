@@ -50,6 +50,7 @@ app.UseHttpsRedirection();
 var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
 
 provider.Mappings.Add(new KeyValuePair<string, string>(".data", "application/octet-stream"));
+provider.Mappings.Add(new KeyValuePair<string, string>(".bundle", "application/octet-stream"));
 
 app.UseStaticFiles(new StaticFileOptions()
 {
