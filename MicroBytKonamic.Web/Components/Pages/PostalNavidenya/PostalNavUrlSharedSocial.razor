@@ -1,5 +1,7 @@
 ﻿@using System.Net
 @inject NavigationManager navigationManager
+@inject IStringLocalizer<PostalNavUrlSharedSocial> loc
+@inject IStringLocalizer<SharedResource> shLoc
 
 <div class="content">
     <div class="row row-cols-auto">
@@ -21,6 +23,8 @@
 @code {
 #nullable disable
     Uri url;
+    string subject;
+    string subjectEncoding;
     string urlEncoding;
     string msg;
     string msgEncoding;
@@ -31,13 +35,15 @@
 
     protected override void OnInitialized()
     {
-        base.OnInitialized();
+        subject = @shLoc["ChristmasCardNamePage"];
+        subjectEncoding = WebUtility.UrlEncode(subject);
         url = navigationManager.ToAbsoluteUri("/PostalNavidenya");
         urlEncoding = WebUtility.UrlEncode(url?.ToString());
-        msg = $"Haz clic en el siguiente enlace para añadir tu felicitación y ver la postal:\n{url}";
+        //msg = $"Haz clic en el siguiente enlace para añadir tu felicitación y ver la postal:\n{url}";
+        msg = Smart.Format(loc["MsgVar"], new { url = url });
         msgEncoding = WebUtility.UrlEncode(msg);
-        text = "Añada su felicitación y vea las demás felicitaciones";
+        text = loc["TextVar"];
         textEncoding = WebUtility.UrlEncode(text);
-        maillink = $"mailto:?subject=Postal navideña&body={msgEncoding}";
+        maillink = $"mailto:?subject={subjectEncoding}&body={msgEncoding}";
     }
 }

@@ -24,6 +24,10 @@
 		<Folder Include="wwwroot\unity\" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="SmartFormat" Version="3.3.2" />
+	</ItemGroup>
+
 	<ItemGroup>		
 		<None Update="Resources\Sounds\Navidad\carol-of-the-bells-177048.mp3">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

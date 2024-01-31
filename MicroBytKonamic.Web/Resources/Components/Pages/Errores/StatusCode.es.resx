@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HomeNamePage" xml:space="preserve">
-    <value>Home</value>
+  <data name="PageNotFoundTitle" xml:space="preserve">
+    <value>☹ Página no encontrada</value>
   </data>
-  <data name="AboutNamePage" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="ChristmasCardNamePage" xml:space="preserve">
-    <value>Christmas card</value>
-  </data>
-  <data name="LanguageTitle" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="ServerCommError" xml:space="preserve">
-    <value>Attention there has been a problem with the server.</value>
-  </data>
-  <data name="GoToHomeText" xml:space="preserve">
-    <value>Go to home page</value>
+  <data name="PageNotFoundText" xml:space="preserve">
+    <value>Lo sentimos, no pudimos encontrar esa página.</value>
   </data>
 </root>

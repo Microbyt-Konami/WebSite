@@ -117,4 +117,31 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="FrmNewChristmasNickLabel" xml:space="preserve">
+    <value>Nick</value>
+  </data>
+  <data name="FrmNewChristmasChristmasGreetingLabel" xml:space="preserve">
+    <value>Christmas greeting</value>
+  </data>
+  <data name="FrmNewChristmasTitle" xml:space="preserve">
+    <value>Add your congratulations and see the other congratulations</value>
+  </data>
+  <data name="FrmNewChristmasAddAndShowButton" xml:space="preserve">
+    <value>Add greeting and View postcard</value>
+  </data>
+  <data name="FrmNewChristmasNoAddMsg" xml:space="preserve">
+    <value>Can't add more postcards until Christmas</value>
+  </data>
+  <data name="ShowButton" xml:space="preserve">
+    <value>See Christmas postcard</value>
+  </data>
+  <data name="ShareChristmasMsg" xml:space="preserve">
+    <value>Share this Christmas card!!!</value>
+  </data>
+  <data name="FrmNewChristmasNickPlaceHolder" xml:space="preserve">
+    <value>Enter your nickname</value>
+  </data>
+  <data name="FrmNewChristmasChristmasGreetingPlaceHolder" xml:space="preserve">
+    <value>Enter your Congratulations</value>
+  </data>
 </root>

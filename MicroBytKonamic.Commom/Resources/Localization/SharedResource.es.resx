@@ -123,10 +123,16 @@
   <data name="AboutNamePage" xml:space="preserve">
     <value>Acerca de</value>
   </data>
-  <data name="ChristmasCarNamePage" xml:space="preserve">
+  <data name="ChristmasCardNamePage" xml:space="preserve">
     <value>Postal Navideña</value>
   </data>
   <data name="LanguageTitle" xml:space="preserve">
     <value>Idioma</value>
+  </data>
+  <data name="ServerCommError" xml:space="preserve">
+    <value>Atención ha habido un problema con el servidor. Por favor inténtelo un poco más tarde</value>
+  </data>
+  <data name="GoToHomeText" xml:space="preserve">
+    <value>Ir página principal</value>
   </data>
 </root>

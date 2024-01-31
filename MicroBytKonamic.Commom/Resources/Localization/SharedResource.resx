@@ -123,10 +123,16 @@
   <data name="AboutNamePage" xml:space="preserve">
     <value>About</value>
   </data>
-  <data name="ChristmasCarNamePage" xml:space="preserve">
+  <data name="ChristmasCardNamePage" xml:space="preserve">
     <value>Christmas card</value>
   </data>
   <data name="LanguageTitle" xml:space="preserve">
     <value>Language</value>
+  </data>
+  <data name="ServerCommError" xml:space="preserve">
+    <value>Attention there has been a problem with the server.</value>
+  </data>
+  <data name="GoToHomeText" xml:space="preserve">
+    <value>Go to home page</value>
   </data>
 </root>

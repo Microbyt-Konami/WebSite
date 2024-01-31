@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HomeNamePage" xml:space="preserve">
-    <value>Home</value>
+  <data name="ProjectDescription1" xml:space="preserve">
+    <value>Microbyt Konamic nacio en Diciembre de 2023 y su primera funcionalidad fue una postal navideña que todo mundo viera su felicitación.</value>
   </data>
-  <data name="AboutNamePage" xml:space="preserve">
-    <value>About</value>
+  <data name="ProjectDescription2" xml:space="preserve">
+    <value>Este proyecto esta hecho en Bazor App (empezó en asp.net core mvc) usando .net 8 y la postal en unity3d 2022.3.16f1</value>
   </data>
-  <data name="ChristmasCardNamePage" xml:space="preserve">
-    <value>Christmas card</value>
+  <data name="MicrobytDescription" xml:space="preserve">
+    <value>Es una marca ficticia que ideo mi padre cuando yo de pequeño/adolescente hacia desarrollo con él. Mi padre murió hace 12 años y es un homenaje al él.</value>
   </data>
-  <data name="LanguageTitle" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="ServerCommError" xml:space="preserve">
-    <value>Attention there has been a problem with the server.</value>
-  </data>
-  <data name="GoToHomeText" xml:space="preserve">
-    <value>Go to home page</value>
+  <data name="KonamiDescription" xml:space="preserve">
+    <value>Konami empresa de mi infancia de videojuegos y además konami2001es que es el usuario de mi hermano de twitter. Falleció hace un mes, 3 de Noviembre y es un homenaje al él.</value>
   </data>
 </root>

@@ -1,4 +1,6 @@
 ﻿@page "/StatusCode/{code:int}"
+@inject IStringLocalizer<StatusCode> loc
+@inject IStringLocalizer<SharedResource> shLoc
 
 <div class="text-center notfound">
     @if (Code != 404)
@@ -7,10 +9,12 @@
     }
     else
     {
-        <h1>☹ Página no encontrada</h1>
-        <p>Lo sentimos, no pudimos encontrar esa página.</p>
+        <h1>@loc["PageNotFoundTitle"]</h1>
+        <p>
+            @loc["PageNotFoundText"]
+        </p>
     }
-    <a href="">Ir página principal</a>
+    <a href="">@shLoc["GoToHomeText"]</a>
 </div>
 
 @code {

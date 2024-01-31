@@ -1,6 +1,7 @@
 ﻿@page "/postalNavidenya/VerPostalNavidenya"
+@inject IStringLocalizer<SharedResource> shLoc
 
-<MKPageTitle Title="Postal navideña" ShowH1="false" />
+<MKPageTitle Title=@shLoc["ChristmasCardNamePage"] ShowH1="false" />
 <UnityWebGLPlayerPageScript UseIndexJson=true BuildUrl="/unity/navidad2023">
     <TitleContent>
         <PostalNavUrlSharedSocial></PostalNavUrlSharedSocial>

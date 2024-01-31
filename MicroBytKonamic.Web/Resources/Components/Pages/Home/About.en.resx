@@ -117,22 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HomeNamePage" xml:space="preserve">
-    <value>Home</value>
+  <data name="ProjectDescription1" xml:space="preserve">
+    <value>Microbyt Konamic was born in December 2023 and its first feature was a Christmas card so everyone could see your greeting.</value>
   </data>
-  <data name="AboutNamePage" xml:space="preserve">
-    <value>About</value>
+  <data name="ProjectDescription2" xml:space="preserve">
+    <value>This project is made in Bazor App (started in asp.net core mvc) using .net 8 and the zip in unity3d 2022.3.16f1</value>
   </data>
-  <data name="ChristmasCardNamePage" xml:space="preserve">
-    <value>Christmas card</value>
+  <data name="MicrobytDescription" xml:space="preserve">
+    <value>It is a fictitious brand that my father created when I was developing with him as a child/adolescent.</value>
   </data>
-  <data name="LanguageTitle" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="ServerCommError" xml:space="preserve">
-    <value>Attention there has been a problem with the server.</value>
-  </data>
-  <data name="GoToHomeText" xml:space="preserve">
-    <value>Go to home page</value>
+  <data name="KonamiDescription" xml:space="preserve">
+    <value>Konami, my childhood video game company, and also konami2001es, which is my brother's Twitter user.</value>
   </data>
 </root>

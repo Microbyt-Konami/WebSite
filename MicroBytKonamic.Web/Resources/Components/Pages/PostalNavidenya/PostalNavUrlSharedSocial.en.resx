@@ -117,22 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HomeNamePage" xml:space="preserve">
-    <value>Home</value>
+  <data name="MsgVar" xml:space="preserve">
+    <value>Click on the following link to add your congratulations and see the postcard:\n{url}</value>
   </data>
-  <data name="AboutNamePage" xml:space="preserve">
-    <value>About</value>
-  </data>
-  <data name="ChristmasCardNamePage" xml:space="preserve">
-    <value>Christmas card</value>
-  </data>
-  <data name="LanguageTitle" xml:space="preserve">
-    <value>Language</value>
-  </data>
-  <data name="ServerCommError" xml:space="preserve">
-    <value>Attention there has been a problem with the server.</value>
-  </data>
-  <data name="GoToHomeText" xml:space="preserve">
-    <value>Go to home page</value>
+  <data name="TextVar" xml:space="preserve">
+    <value>Add your congratulations and see the other congratulations</value>
   </data>
 </root>
