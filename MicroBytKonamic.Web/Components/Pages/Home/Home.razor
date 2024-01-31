@@ -1,7 +1,8 @@
 ﻿@page "/"
+@inject IStringLocalizer<SharedResource> shLoc
 
-<MKPageTitle Title="Página Principal" ShowH1="false" />
+<MKPageTitle Title=@shLoc["HomeNamePage"] ShowH1="false" />
 
-<a href="PostalNavidenya">Postal Navideña</a>
+<a href="PostalNavidenya">@shLoc["ChristmasCardNamePage"]</a>
 @* <a asp-area="" asp-controller="PostalNavidenya" asp-action="VerPostalNavidenya">Postal Navideña</a> *@
 

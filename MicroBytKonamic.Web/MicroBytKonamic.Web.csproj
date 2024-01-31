@@ -25,6 +25,10 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <PackageReference Include="SmartFormat" Version="3.3.2" />
+	</ItemGroup>
+
+	<ItemGroup>		
 		<None Update="Resources\Sounds\Navidad\carol-of-the-bells-177048.mp3">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
@@ -70,6 +74,10 @@
 		<None Update="Resources\Sounds\Navidad\we-wish-you-a-merry-christmas_60sec-174155.mp3">
 			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Service Include="{508349b6-6b84-4df5-91f0-309beebad82d}" />
 	</ItemGroup>
 
 </Project>

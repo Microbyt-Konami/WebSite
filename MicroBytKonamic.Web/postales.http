@@ -15,6 +15,7 @@ Content-Type: application/json
 
 POST https://localhost:7076/api/postales/getfelicitacion
 Content-Type: application/json
+Accept-Language: es
 
 {
   "anyo": 2023,

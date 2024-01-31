@@ -17,6 +17,8 @@ var builder = WebApplication.CreateBuilder(args);
 //    options.Level = CompressionLevel.SmallestSize;
 //});
 
+builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
+
 builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
 // MicrobytKonamic services
 builder.Services.AddMicrobytKonamic();
@@ -48,11 +50,27 @@ app.UseHttpsRedirection();
 var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
 
 provider.Mappings.Add(new KeyValuePair<string, string>(".data", "application/octet-stream"));
+provider.Mappings.Add(new KeyValuePair<string, string>(".bundle", "application/octet-stream"));
 
 app.UseStaticFiles(new StaticFileOptions()
 {
     ContentTypeProvider = provider
 });
+
+var supportedCultures = new[] { "es", "en" };
+var locOptions = new RequestLocalizationOptions()
+    .SetDefaultCulture("en")
+    .AddSupportedCultures(supportedCultures)
+    .AddSupportedUICultures(supportedCultures);
+
+//locOptions.AddInitialRequestCultureProvider(new InterativeCultureProvider());
+//locOptions.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(ctx =>
+//{
+//    var culture = ctx.Request.Cookies["lang"] ?? "en";
+//    return Task.FromResult(new ProviderCultureResult(culture, culture))!;
+//}));
+app.UseRequestLocalization(locOptions);
+
 app.UseRouting();
 app.UseAntiforgery();
 
@@ -63,3 +81,5 @@ app.MapRazorComponents<App>()
     .AddInteractiveServerRenderMode();
 
 app.Run();
+
+

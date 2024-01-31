@@ -1,5 +1,6 @@
 ﻿@using System.Reflection
 @inherits LayoutComponentBase
+@inject IStringLocalizer<SharedResource> shLoc
 
 @{
     var assembly = Assembly.GetEntryAssembly()!;
@@ -7,12 +8,12 @@
     string version = assembly.GetCustomAttribute<AssemblyFileVersionAttribute>()!.Version;
 }
 
-<PageTitle>MicroBytKonamic</PageTitle>
+<PageTitle>MicroBytKonami</PageTitle>
 
 <header>
     <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
         <div class="container-fluid">
-            <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
+            <a class="navbar-brand" href="">
                 <span class="site-header-logo d-none d-sm-none d-md-inline-block"><span class="fas fa-code" style="font-family: 'zx';"></span>MK</span>
                 <span class="site-header-text">
                     <span class="site-header-title">
@@ -28,12 +29,12 @@
             <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
-                        <a class="nav-link text-dark" href="">Página Principal</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link text-dark" href="about">Acerca de</a>
-                    </li>
-                    @*  <li class="nav-item">
+                        <a class="nav-link text-dark" href="">@shLoc["HomeNamePage"]</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" href="about">@shLoc["AboutNamePage"]</a>
+                        </li>
+                        @*  <li class="nav-item">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                     <span class="nav-link text-dark" aria-hidden="true">Página Principal</span>
                     </NavLink>
@@ -43,17 +44,20 @@
                     <span class="nav-link text-dark" aria-hidden="true">Acerca de</span>
                     </NavLink>
                     </li> *@
-                    @*  <li class="nav-item">
+                        @*  <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li> *@
-                </ul>
+                        <li class="nav-item">
+                        <a class="nav-link text-dark"><CultureSelector @rendermode="InteractiveServer" /></a>
+                        </li>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
-<div class="container">
-    <main role="main" class="pb-3">
-        @Body
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @Body
     </main>
 </div>
 
