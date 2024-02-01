@@ -2,6 +2,7 @@
   "_Comment_filename": "type:string filename de fortune",
   "_Comment_language": "type:string? Default en",
   "_Comment_topic": "type:string? Default filename until first dot. Example => filename: murphy.fortunes.u8 => topic: murphy",
+  "_Comment_skip": "type:bool?. If active skip file",
   "files": [
     {
       "filename": "proverbios.fortunes.u8",

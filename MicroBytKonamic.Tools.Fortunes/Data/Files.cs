@@ -13,4 +13,5 @@ internal class Files
     public required string Filename { get; set; }
     public string? Language { get; set; }
     public string? Topic { get; set; }
+    public bool? Skip { get; set; }
 }

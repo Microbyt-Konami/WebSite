@@ -72,14 +72,14 @@ internal class JsonFortunesServices
     private void DefaultPropFile(Files file)
     {
         // Default en
-        if (!string.IsNullOrWhiteSpace(file.Language))
+        if (string.IsNullOrWhiteSpace(file.Language))
         {
             file.Language = "en";
             _log.LogWarning($"default language: {file.Language}");
         }
 
         // Default filename until first dot. Example => filename: murphy.fortunes.u8 => topic: murphy
-        if (!string.IsNullOrWhiteSpace(file.Topic))
+        if (string.IsNullOrWhiteSpace(file.Topic))
         {
             int dotIdx = file.Filename.IndexOf('.');
 
