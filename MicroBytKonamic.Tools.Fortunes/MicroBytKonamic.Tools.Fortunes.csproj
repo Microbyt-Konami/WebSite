@@ -29,11 +29,19 @@
   <ItemGroup>
     <!--<PackageReference Include="Microsoft.Extensions.Configuration" Version="8.0.0" />-->
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="8.0.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="8.0.0" />
+    <PackageReference Include="Serilog.Sinks.File" Version="5.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\MicroBytKonamic.Application\MicroBytKonamic.Application.csproj" />
     <ProjectReference Include="..\MicroBytKonamic.Commom\MicroBytKonamic.Commom.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="fortunes\fortunes.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>

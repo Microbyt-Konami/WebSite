@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MicroBytKonamic.Tools.Fortunes
+namespace MicroBytKonamic.Tools.Fortunes.Services
 {
     internal class ResourcesServices : IResourcesServices
     {

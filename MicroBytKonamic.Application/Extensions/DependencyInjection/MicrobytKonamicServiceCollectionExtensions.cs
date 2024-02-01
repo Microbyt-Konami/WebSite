@@ -20,5 +20,6 @@ public static class MicrobytKonamicServiceCollectionExtensions
 
         // Services
         services.AddScoped<IPostalesServices, PostalesServices>();
+        services.AddScoped<IFortunesServices, FortunesServices>();
     }
 }

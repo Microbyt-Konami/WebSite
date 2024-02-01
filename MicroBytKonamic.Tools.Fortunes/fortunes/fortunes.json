@@ -1,0 +1,14 @@
+{
+  "_Comment_filename": "type:string filename de fortune",
+  "_Comment_language": "type:string? Default en",
+  "_Comment_topic": "type:string? Default filename until first dot. Example => filename: murphy.fortunes.u8 => topic: murphy",
+  "files": [
+    {
+      "filename": "proverbios.fortunes.u8",
+      "language": "es"
+    },
+    {
+      "filename": "fortunes.general"
+    }
+  ]
+}
