@@ -6,10 +6,12 @@
   "files": [
     {
       "filename": "proverbios.fortunes.u8",
-      "language": "es"
+      "language": "es",
+      "_Comment_skip": false
     },
     {
-      "filename": "fortunes.general"
+      "filename": "general.fortunes",
+      "_Comment_skip": false
     }
   ]
 }

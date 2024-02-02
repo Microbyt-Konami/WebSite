@@ -73,16 +73,16 @@ public class FortunesServices : IFortunesServices
         _log.LogInformation($"Se ha importado {count} fortunes");
     }
 
-    private async Task ImportInternal(ImportFortunesIn fortune, CancellationToken cancellationToken)
+    private async Task ImportInternal(ImportFortunesIn fortuneImp, CancellationToken cancellationToken)
     {
-        var language = await _dbContext.Languages.FirstOrDefaultAsync(l => l.Culture == fortune.Language, cancellationToken);
+        var language = await _dbContext.Languages.FirstOrDefaultAsync(l => l.Culture == fortuneImp.Language, cancellationToken);
 
         cancellationToken.ThrowIfCancellationRequested();
 
         if (language == null)
-            throw new MBException($"Language {fortune.Language} don't exist");
+            throw new MBException($"Language {fortuneImp.Language} don't exist");
 
-        var topic = await _dbContext.Topicsfortunes.FirstOrDefaultAsync(t => t.Topic == fortune.Topic);
+        var topic = await _dbContext.Topicsfortunes.FirstOrDefaultAsync(t => t.Topic == fortuneImp.Topic);
 
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -90,7 +90,7 @@ public class FortunesServices : IFortunesServices
         {
             topic = new Topicsfortune
             {
-                Topic = fortune.Topic,
+                Topic = fortuneImp.Topic,
             };
 
             await _dbContext.Topicsfortunes.AddAsync(topic, cancellationToken);
@@ -98,7 +98,8 @@ public class FortunesServices : IFortunesServices
             cancellationToken.ThrowIfCancellationRequested();
         }
 
-        var fortunes = await _dbContext.Filesfortunes.FirstOrDefaultAsync(f => f.Filename == fortune.Filename);
+        var fortunes = await _dbContext.Filesfortunes.Include(f => f.Fortunes).FirstOrDefaultAsync(f => f.Filename == fortuneImp.Filename);
+        IEnumerable<string>? fortunesIns = null;
 
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -108,10 +109,11 @@ public class FortunesServices : IFortunesServices
             {
                 IdLanguagesNavigation = language,
                 IdTopicsFortunesNavigation = topic,
-                Filename = fortune.Filename
+                Filename = fortuneImp.Filename
             };
 
             await _dbContext.Filesfortunes.AddAsync(fortunes, cancellationToken);
+            fortunesIns = fortuneImp.Fortunes;
 
             cancellationToken.ThrowIfCancellationRequested();
         }
@@ -121,20 +123,53 @@ public class FortunesServices : IFortunesServices
                 fortunes.IdLanguagesNavigation = language;
             if (fortunes.IdTopicsFortunesNavigation != topic)
                 fortunes.IdTopicsFortunesNavigation = topic;
-            _dbContext.Fortunes.RemoveRange(fortunes.Fortunes);
+            //_dbContext.Fortunes.RemoveRange(fortunes.Fortunes);
+
+            var query =
+            (
+                from f in fortunes.Fortunes
+                join t in fortuneImp.Fortunes on f.Fortune1 equals t into it
+                from t in it.DefaultIfEmpty()
+                select new { f, t }
+            );
+            var queryNoImport = query.Where(q => q.t != null);
+            var queryDel =
+            (
+                from q in query
+                where q.t == null
+                select q.f
+            ).ToArray();
+            var queryIns =
+            (
+                from t in fortuneImp.Fortunes
+                join f in fortunes.Fortunes on t equals f.Fortune1 into _if
+                from f in _if.DefaultIfEmpty()
+                where f == null
+                select t
+            ).ToArray();
+            var countNoImport = queryNoImport.Count();
+            var countIns = queryIns.Length;
+            var countDel = queryDel.Length;
+
+            _log.LogInformation($"FileFortune have been imported. Fortunes equals: {countNoImport} to Ins: {countIns} to Del: {countDel}");
+            if (countDel > 0)
+                _dbContext.Fortunes.RemoveRange(queryDel);
+            if (countIns > 0)
+                fortunesIns = queryIns;
         }
 
-        await _dbContext.Fortunes.AddRangeAsync
-        (
-            fortune.Fortunes.Select
+        if (fortunesIns != null)
+            await _dbContext.Fortunes.AddRangeAsync
             (
-                t => new Fortune
-                {
-                    IdFilesFortunesNavigation = fortunes,
-                    Fortune1 = t
-                }
-            ),
-            cancellationToken
-        );
+                fortunesIns.Select
+                (
+                    t => new Fortune
+                    {
+                        IdFilesFortunesNavigation = fortunes,
+                        Fortune1 = t
+                    }
+                ),
+                cancellationToken
+            );
     }
 }

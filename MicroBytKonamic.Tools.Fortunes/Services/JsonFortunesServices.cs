@@ -51,7 +51,11 @@ internal class JsonFortunesServices
             _log.LogInformation($"Language: {file.Language}");
         if (!string.IsNullOrWhiteSpace(file.Topic))
             _log.LogInformation($"Topic: {file.Topic}");
+        _log.LogInformation($"Skip: {file.Skip}");
         DefaultPropFile(file);
+
+        if (file.Skip.GetValueOrDefault())
+            return null;
 
         var fortunes = await ReadFortunes(file);
 

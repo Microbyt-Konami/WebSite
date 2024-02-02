@@ -1,13 +1,11 @@
 ﻿// https://andrewlock.net/using-dependency-injection-in-a-net-core-console-application/
 
 using MicroBytKonamic.Tools.Fortunes;
-using MicroBytKonamic.Tools.Fortunes.Services;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
-using Serilog;
-using Serilog.Sinks.File;
+using NReco.Logging.File;
 
 HostApplicationBuilder builder = Host.CreateApplicationBuilder
 (
@@ -20,21 +18,23 @@ HostApplicationBuilder builder = Host.CreateApplicationBuilder
         EnvironmentName = Environments.Production
 #endif
     }
-    );
+);
 
 builder.Services.AddLogging
 (
-    loggingBuilder =>
-          loggingBuilder
-            //.ClearProviders()
-            //.AddDebug()
-            .AddSerilog
-             (
-                new LoggerConfiguration()
-                    .WriteTo.File("fortunes/fortunes.log", rollingInterval: RollingInterval.Day)
-                    .CreateLogger(),
-                dispose: true
-             )
+    builder =>
+    {
+        builder.AddColorMessageConsole(options => options.ColorBehavior = Microsoft.Extensions.Logging.Console.LoggerColorBehavior.Enabled);
+        //builder.AddSimpleConsole(options =>
+        //{
+        //    options.SingleLine = true;
+        //    options.UseUtcTimestamp = false;
+        //    options.IncludeScopes = false;
+        //    options.TimestampFormat = "HH:mm:ss ";
+        //});
+        builder.AddFile("fortunes/fortunes.log", append: false);
+
+    }
 );
 builder.Services.AddLocalization();
 builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
