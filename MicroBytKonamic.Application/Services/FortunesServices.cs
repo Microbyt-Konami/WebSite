@@ -29,15 +29,25 @@ public class FortunesServices : IFortunesServices
             try
             {
                 cancellationToken.ThrowIfCancellationRequested();
-                count++;
-                await ImportInternal(fortune, cancellationToken);
+
+                var rows = await ImportInternal(fortune, cancellationToken);
+
+                if (rows.HasValue)
+                {
+                    count += rows.Value;
+
+                    await _dbContext.SaveChangesAsync(cancellationToken);
+                    cancellationToken.ThrowIfCancellationRequested();
+                }
             }
             catch (OperationCanceledException)
             {
+                _dbContext.ChangeTracker.DetectChanges();
                 throw;
             }
             catch (AggregateException ex)
             {
+                _dbContext.ChangeTracker.DetectChanges();
                 ex.Flatten().Handle(ex =>
                 {
                     _log.LogError(ex.Message);
@@ -49,32 +59,31 @@ public class FortunesServices : IFortunesServices
             }
             catch (MBException ex)
             {
+                _dbContext.ChangeTracker.DetectChanges();
                 _log.LogError(ex.Message);
             }
             catch (Exception ex)
             {
+                _dbContext.ChangeTracker.DetectChanges();
                 _log.LogError(ex.Message);
                 exs.Add(ex);
             }
         }
 
+        _log.LogInformation($"Se ha importado {count} fortunes");
+
         if (exs.Count > 0)
         {
-            _dbContext.ChangeTracker.DetectChanges();
             if (exs.Count == 1)
                 throw exs[0];
             else
                 throw new AggregateException(exs);
         }
-
-        await _dbContext.SaveChangesAsync(cancellationToken);
-        cancellationToken.ThrowIfCancellationRequested();
-
-        _log.LogInformation($"Se ha importado {count} fortunes");
     }
 
-    private async Task ImportInternal(ImportFortunesIn fortuneImp, CancellationToken cancellationToken)
+    private async Task<int?> ImportInternal(ImportFortunesIn fortuneImp, CancellationToken cancellationToken)
     {
+        bool doUpdate = false;
         var language = await _dbContext.Languages.FirstOrDefaultAsync(l => l.Culture == fortuneImp.Language, cancellationToken);
 
         cancellationToken.ThrowIfCancellationRequested();
@@ -94,12 +103,14 @@ public class FortunesServices : IFortunesServices
             };
 
             await _dbContext.Topicsfortunes.AddAsync(topic, cancellationToken);
-
             cancellationToken.ThrowIfCancellationRequested();
+
+            doUpdate = true;
         }
 
+        var fortunesTxt = fortuneImp.Fortunes;
         var fortunes = await _dbContext.Filesfortunes.Include(f => f.Fortunes).FirstOrDefaultAsync(f => f.Filename == fortuneImp.Filename);
-        IEnumerable<string>? fortunesIns = null;
+        ICollection<string>? fortunesIns = null;
 
         cancellationToken.ThrowIfCancellationRequested();
 
@@ -113,9 +124,10 @@ public class FortunesServices : IFortunesServices
             };
 
             await _dbContext.Filesfortunes.AddAsync(fortunes, cancellationToken);
-            fortunesIns = fortuneImp.Fortunes;
-
             cancellationToken.ThrowIfCancellationRequested();
+
+            fortunesIns = fortunesTxt;
+            doUpdate = true;
         }
         else
         {
@@ -128,7 +140,7 @@ public class FortunesServices : IFortunesServices
             var query =
             (
                 from f in fortunes.Fortunes
-                join t in fortuneImp.Fortunes on f.Fortune1 equals t into it
+                join t in fortunesTxt on f.Fortune1 equals t into it
                 from t in it.DefaultIfEmpty()
                 select new { f, t }
             );
@@ -141,7 +153,7 @@ public class FortunesServices : IFortunesServices
             ).ToArray();
             var queryIns =
             (
-                from t in fortuneImp.Fortunes
+                from t in fortunesTxt
                 join f in fortunes.Fortunes on t equals f.Fortune1 into _if
                 from f in _if.DefaultIfEmpty()
                 where f == null
@@ -153,12 +165,16 @@ public class FortunesServices : IFortunesServices
 
             _log.LogInformation($"FileFortune have been imported. Fortunes equals: {countNoImport} to Ins: {countIns} to Del: {countDel}");
             if (countDel > 0)
+            {
                 _dbContext.Fortunes.RemoveRange(queryDel);
+                doUpdate = true;
+            }
             if (countIns > 0)
                 fortunesIns = queryIns;
         }
 
         if (fortunesIns != null)
+        {
             await _dbContext.Fortunes.AddRangeAsync
             (
                 fortunesIns.Select
@@ -171,5 +187,11 @@ public class FortunesServices : IFortunesServices
                 ),
                 cancellationToken
             );
+            cancellationToken.ThrowIfCancellationRequested();
+
+            doUpdate = true;
+        }
+
+        return (fortunesIns == null || fortunesIns.Count == 0) ? doUpdate ? 0 : null : fortunesIns.Count;
     }
 }

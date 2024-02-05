@@ -7,11 +7,41 @@
     {
       "filename": "proverbios.fortunes.u8",
       "language": "es",
-      "_Comment_skip": false
+      "skip": false
+    },
+    {
+      "filename": "libertad.fortunes.u8",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "informatica.fortunes.u8",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "leydemurphy.fortunes.u8",
+      "topic": "ley de murphy",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "filosofia.fortunes.u8",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "deprimente.fortunes.u8",
+      "language": "es",
+      "skip": false
     },
     {
       "filename": "general.fortunes",
-      "_Comment_skip": false
+      "skip": false
+    },
+    {
+      "filename": "general.fortunes.2",
+      "skip": false
     }
   ]
 }

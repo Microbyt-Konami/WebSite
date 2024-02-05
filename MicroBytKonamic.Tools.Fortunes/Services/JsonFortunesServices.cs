@@ -87,7 +87,7 @@ internal class JsonFortunesServices
         {
             int dotIdx = file.Filename.IndexOf('.');
 
-            file.Topic = (dotIdx > 0) ? file.Filename.Substring(0, dotIdx - 1) : file.Filename;
+            file.Topic = (dotIdx > 0) ? file.Filename.Substring(0, dotIdx) : file.Filename;
             _log.LogWarning($"default topic: {file.Topic}");
         }
     }
@@ -104,7 +104,7 @@ internal class JsonFortunesServices
         }
 
         var text = await File.ReadAllTextAsync(filePath);
-        var fortunes = text.Split('%', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).ToArray();
+        var fortunes = text.Split('%', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries).Select(t => t.Replace("\r", "").Replace('\n', ' ').Replace("\t", "")).ToArray();
 
         return fortunes;
     }
