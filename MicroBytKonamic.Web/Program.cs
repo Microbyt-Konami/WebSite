@@ -18,8 +18,8 @@ var builder = WebApplication.CreateBuilder(args);
 //});
 
 builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
-
 builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
+builder.Services.AddMemoryCache();
 // MicrobytKonamic services
 builder.Services.AddMicrobytKonamic();
 

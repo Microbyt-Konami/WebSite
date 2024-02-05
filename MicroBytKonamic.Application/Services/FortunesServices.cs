@@ -1,5 +1,4 @@
-﻿using MicroBytKonamic.Commom.Interfaces;
-using Microsoft.Extensions.Logging;
+﻿using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,187 +10,53 @@ namespace MicroBytKonamic.Application.Services;
 public class FortunesServices : IFortunesServices
 {
     private readonly MicrobytkonamicContext _dbContext;
-    private readonly ILogger<FortunesServices> _log;
+    private readonly IMemoryCache _cache;
+    private readonly IRandomServices _random;
+    private readonly IMapper _mapper;
 
-    public FortunesServices(MicrobytkonamicContext dbContext, ILogger<FortunesServices> log)
+    public FortunesServices(MicrobytkonamicContext dbContext, IMemoryCache cache, IRandomServices random, IMapper mapper)
     {
         _dbContext = dbContext;
-        _log = log;
+        _cache = cache;
+        _random = random;
+        _mapper = mapper;
     }
 
-    public async Task Import(ICollection<ImportFortunesIn> fortunes, CancellationToken cancellationToken)
+    public async Task<FortuneOfDayDto> GetFortuneOfDayAsync(string language, CancellationToken cancellationToken)
     {
-        var exs = new List<Exception>();
-        int count = 0;
+        var fortuneDto = GetFortuneOfDayCocke(language);
 
-        foreach (var fortune in fortunes)
+        if (fortuneDto != null)
+            return fortuneDto;
+
+        var fortunes0 =
+        (
+            from f in _dbContext.Fortunes
+            join ff in _dbContext.Filesfortunes on f.IdFilesFortunes equals ff.IdFilesFortunes
+            join l in _dbContext.Languages on ff.IdLanguages equals l.IdLanguages
+            select new { f, l.Culture }
+        );
+        var fortunes = fortunes0.Where(f => f.Culture == language);
+        var count = fortunes.Count();
+
+        if (count == 0)
         {
-            try
-            {
-                cancellationToken.ThrowIfCancellationRequested();
-
-                var rows = await ImportInternal(fortune, cancellationToken);
-
-                if (rows.HasValue)
-                {
-                    count += rows.Value;
-
-                    await _dbContext.SaveChangesAsync(cancellationToken);
-                    cancellationToken.ThrowIfCancellationRequested();
-                }
-            }
-            catch (OperationCanceledException)
-            {
-                _dbContext.ChangeTracker.DetectChanges();
-                throw;
-            }
-            catch (AggregateException ex)
-            {
-                _dbContext.ChangeTracker.DetectChanges();
-                ex.Flatten().Handle(ex =>
-                {
-                    _log.LogError(ex.Message);
-                    if (!(ex is MBException))
-                        exs.Add(ex);
-
-                    return true;
-                });
-            }
-            catch (MBException ex)
-            {
-                _dbContext.ChangeTracker.DetectChanges();
-                _log.LogError(ex.Message);
-            }
-            catch (Exception ex)
-            {
-                _dbContext.ChangeTracker.DetectChanges();
-                _log.LogError(ex.Message);
-                exs.Add(ex);
-            }
+            fortunes = fortunes0;
+            count = fortunes.Count();
         }
 
-        _log.LogInformation($"Se ha importado {count} fortunes");
+        var idx = _random.NetInt(count);
+        var fortune = await fortunes.Skip(idx).FirstAsync(cancellationToken);
 
-        if (exs.Count > 0)
-        {
-            if (exs.Count == 1)
-                throw exs[0];
-            else
-                throw new AggregateException(exs);
-        }
+        cancellationToken.ThrowIfCancellationRequested();
+
+        fortuneDto = _mapper.Map<FortuneOfDayDto>(fortune.f);
+        SetFortuneOfDayCocke(fortune.Culture, fortuneDto);
+
+        return fortuneDto;
     }
 
-    private async Task<int?> ImportInternal(ImportFortunesIn fortuneImp, CancellationToken cancellationToken)
-    {
-        bool doUpdate = false;
-        var language = await _dbContext.Languages.FirstOrDefaultAsync(l => l.Culture == fortuneImp.Language, cancellationToken);
-
-        cancellationToken.ThrowIfCancellationRequested();
-
-        if (language == null)
-            throw new MBException($"Language {fortuneImp.Language} don't exist");
-
-        var topic = await _dbContext.Topicsfortunes.FirstOrDefaultAsync(t => t.Topic == fortuneImp.Topic);
-
-        cancellationToken.ThrowIfCancellationRequested();
-
-        if (topic == null)
-        {
-            topic = new Topicsfortune
-            {
-                Topic = fortuneImp.Topic,
-            };
-
-            await _dbContext.Topicsfortunes.AddAsync(topic, cancellationToken);
-            cancellationToken.ThrowIfCancellationRequested();
-
-            doUpdate = true;
-        }
-
-        var fortunesTxt = fortuneImp.Fortunes;
-        var fortunes = await _dbContext.Filesfortunes.Include(f => f.Fortunes).FirstOrDefaultAsync(f => f.Filename == fortuneImp.Filename);
-        ICollection<string>? fortunesIns = null;
-
-        cancellationToken.ThrowIfCancellationRequested();
-
-        if (fortunes == null)
-        {
-            fortunes = new Filesfortune
-            {
-                IdLanguagesNavigation = language,
-                IdTopicsFortunesNavigation = topic,
-                Filename = fortuneImp.Filename
-            };
-
-            await _dbContext.Filesfortunes.AddAsync(fortunes, cancellationToken);
-            cancellationToken.ThrowIfCancellationRequested();
-
-            fortunesIns = fortunesTxt;
-            doUpdate = true;
-        }
-        else
-        {
-            if (fortunes.IdLanguagesNavigation != language)
-                fortunes.IdLanguagesNavigation = language;
-            if (fortunes.IdTopicsFortunesNavigation != topic)
-                fortunes.IdTopicsFortunesNavigation = topic;
-            //_dbContext.Fortunes.RemoveRange(fortunes.Fortunes);
-
-            var query =
-            (
-                from f in fortunes.Fortunes
-                join t in fortunesTxt on f.Fortune1 equals t into it
-                from t in it.DefaultIfEmpty()
-                select new { f, t }
-            );
-            var queryNoImport = query.Where(q => q.t != null);
-            var queryDel =
-            (
-                from q in query
-                where q.t == null
-                select q.f
-            ).ToArray();
-            var queryIns =
-            (
-                from t in fortunesTxt
-                join f in fortunes.Fortunes on t equals f.Fortune1 into _if
-                from f in _if.DefaultIfEmpty()
-                where f == null
-                select t
-            ).ToArray();
-            var countNoImport = queryNoImport.Count();
-            var countIns = queryIns.Length;
-            var countDel = queryDel.Length;
-
-            _log.LogInformation($"FileFortune have been imported. Fortunes equals: {countNoImport} to Ins: {countIns} to Del: {countDel}");
-            if (countDel > 0)
-            {
-                _dbContext.Fortunes.RemoveRange(queryDel);
-                doUpdate = true;
-            }
-            if (countIns > 0)
-                fortunesIns = queryIns;
-        }
-
-        if (fortunesIns != null)
-        {
-            await _dbContext.Fortunes.AddRangeAsync
-            (
-                fortunesIns.Select
-                (
-                    t => new Fortune
-                    {
-                        IdFilesFortunesNavigation = fortunes,
-                        Fortune1 = t
-                    }
-                ),
-                cancellationToken
-            );
-            cancellationToken.ThrowIfCancellationRequested();
-
-            doUpdate = true;
-        }
-
-        return (fortunesIns == null || fortunesIns.Count == 0) ? doUpdate ? 0 : null : fortunesIns.Count;
-    }
+    private string GetFortuneOfDayKey(string language) => $"fortuneOfDay{language}";
+    private FortuneOfDayDto? GetFortuneOfDayCocke(string language) => _cache.Get<FortuneOfDayDto>(GetFortuneOfDayKey(language));
+    private void SetFortuneOfDayCocke(string language, FortuneOfDayDto fortune) => _cache.Set(GetFortuneOfDayKey(language), fortune, TimeSpan.FromHours(3));
 }

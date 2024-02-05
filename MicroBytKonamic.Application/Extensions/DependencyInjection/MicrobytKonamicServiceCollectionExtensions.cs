@@ -19,7 +19,8 @@ public static class MicrobytKonamicServiceCollectionExtensions
         services.AddAutoMapper(typeof(DtoMappingProfile));
 
         // Services
+        services.AddScoped<IRandomServices, RandomServices>();
         services.AddScoped<IPostalesServices, PostalesServices>();
-        services.AddScoped<IFortunesServices, FortunesServices>();
+        services.AddScoped<IImportFortunesServices, ImportFortunesServices>();
     }
 }

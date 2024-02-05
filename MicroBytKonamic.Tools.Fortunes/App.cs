@@ -11,10 +11,10 @@ namespace MicroBytKonamic.Tools.Fortunes
     internal class App
     {
         private readonly JsonFortunesServices _jsonFortunes;
-        private readonly IFortunesServices _services;
+        private readonly IImportFortunesServices _services;
         private readonly ILogger<App> _log;
 
-        public App(JsonFortunesServices jsonFortunes, IFortunesServices services, ILogger<App> log)
+        public App(JsonFortunesServices jsonFortunes, IImportFortunesServices services, ILogger<App> log)
         {
             _jsonFortunes = jsonFortunes;
             _services = services;

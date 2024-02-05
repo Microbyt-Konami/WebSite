@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MicroBytKonamic.Commom.Interfaces;
 
-public interface IFortunesServices
+public interface IImportFortunesServices
 {
     Task Import(ICollection<ImportFortunesIn> fortunes, CancellationToken cancellationToken);
 }
