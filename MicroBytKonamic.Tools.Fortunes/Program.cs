@@ -1,5 +1,7 @@
 ﻿// https://andrewlock.net/using-dependency-injection-in-a-net-core-console-application/
 
+using MicroBytKonamic.Application.Services;
+using MicroBytKonamic.Data.DataContext;
 using MicroBytKonamic.Tools.Fortunes;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -39,7 +41,8 @@ builder.Services.AddLogging
 builder.Services.AddLocalization();
 builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
 builder.Services.AddSingleton<JsonFortunesServices>();
-builder.Services.AddMicrobytKonamic();
+builder.Services.AddDbContext<MicrobytkonamicContext>();
+builder.Services.AddScoped<IImportFortunesServices, ImportFortunesServices>();
 builder.Services.AddScoped<App>();
 
 using IHost host = builder.Build();
