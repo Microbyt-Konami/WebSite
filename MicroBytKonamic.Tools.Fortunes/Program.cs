@@ -38,12 +38,13 @@ builder.Services.AddLogging
 
     }
 );
-builder.Services.AddLocalization();
-builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
-builder.Services.AddSingleton<JsonFortunesServices>();
-builder.Services.AddDbContext<MicrobytkonamicContext>();
-builder.Services.AddScoped<IImportFortunesServices, ImportFortunesServices>();
-builder.Services.AddScoped<App>();
+builder.Services
+    .AddLocalization()
+    .AddSingleton<IResourcesServices, ResourcesServices>()
+    .AddSingleton<JsonFortunesServices>()
+    .AddDbContext<MicrobytkonamicContext>()
+    .AddScoped<IImportFortunesServices, ImportFortunesServices>()
+    .AddScoped<App>();
 
 using IHost host = builder.Build();
 

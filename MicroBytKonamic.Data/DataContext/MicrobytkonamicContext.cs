@@ -18,6 +18,8 @@ public partial class MicrobytkonamicContext : DbContext
 
     public virtual DbSet<Fortune> Fortunes { get; set; }
 
+    public virtual DbSet<Fortunesofday> Fortunesofdays { get; set; }
+
     public virtual DbSet<Language> Languages { get; set; }
 
     public virtual DbSet<Postale> Postales { get; set; }
@@ -38,9 +40,9 @@ public partial class MicrobytkonamicContext : DbContext
 
             entity.HasIndex(e => e.Filename, "Filename_UNIQUE").IsUnique();
 
-            entity.HasIndex(e => e.IdLanguages, "idLanguages_idx");
+            entity.HasIndex(e => e.IdLanguages, "filesfortunes_idLanguages_idx");
 
-            entity.HasIndex(e => e.IdTopicsFortunes, "idTopicsFortunes_idx");
+            entity.HasIndex(e => e.IdTopicsFortunes, "filesfortunes_idTopicsFortunes_idx");
 
             entity.Property(e => e.IdFilesFortunes).HasColumnName("idFilesFortunes");
             entity.Property(e => e.Filename)
@@ -53,12 +55,12 @@ public partial class MicrobytkonamicContext : DbContext
             entity.HasOne(d => d.IdLanguagesNavigation).WithMany(p => p.Filesfortunes)
                 .HasForeignKey(d => d.IdLanguages)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("idLanguages");
+                .HasConstraintName("filesfortunes_idLanguages");
 
             entity.HasOne(d => d.IdTopicsFortunesNavigation).WithMany(p => p.Filesfortunes)
                 .HasForeignKey(d => d.IdTopicsFortunes)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("idTopicsFortunes");
+                .HasConstraintName("filesfortunes_idTopicsFortunes");
         });
 
         modelBuilder.Entity<Fortune>(entity =>
@@ -67,7 +69,7 @@ public partial class MicrobytkonamicContext : DbContext
 
             entity.ToTable("fortunes");
 
-            entity.HasIndex(e => e.IdFilesFortunes, "idFilesFortunes_idx");
+            entity.HasIndex(e => e.IdFilesFortunes, "fortunes_idFilesFortunes_idx");
 
             entity.Property(e => e.IdFortunes).HasColumnName("idFortunes");
             entity.Property(e => e.Fortune1)
@@ -78,7 +80,37 @@ public partial class MicrobytkonamicContext : DbContext
             entity.HasOne(d => d.IdFilesFortunesNavigation).WithMany(p => p.Fortunes)
                 .HasForeignKey(d => d.IdFilesFortunes)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("idFilesFortunes");
+                .HasConstraintName("fortunes_idFilesFortunes_fx");
+        });
+
+        modelBuilder.Entity<Fortunesofday>(entity =>
+        {
+            entity.HasKey(e => e.IdfortunesOfDay).HasName("PRIMARY");
+
+            entity.ToTable("fortunesofday");
+
+            entity.HasIndex(e => e.IdFortunes, "fortunesofday_idFortunes_idx");
+
+            entity.HasIndex(e => e.IdLanguages, "fortunesofday_idLanguages_idx");
+
+            entity.HasIndex(e => new { e.Day, e.IdLanguages }, "fortunesofday_u1");
+
+            entity.Property(e => e.IdfortunesOfDay)
+                .ValueGeneratedNever()
+                .HasColumnName("idfortunesOfDay");
+            entity.Property(e => e.Day).HasColumnType("datetime");
+            entity.Property(e => e.IdFortunes).HasColumnName("idFortunes");
+            entity.Property(e => e.IdLanguages).HasColumnName("idLanguages");
+
+            entity.HasOne(d => d.IdFortunesNavigation).WithMany(p => p.Fortunesofdays)
+                .HasForeignKey(d => d.IdFortunes)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fortunesofday_idFortunes_fx");
+
+            entity.HasOne(d => d.IdLanguagesNavigation).WithMany(p => p.Fortunesofdays)
+                .HasForeignKey(d => d.IdLanguages)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("fortunesofday_idLanguages_fx");
         });
 
         modelBuilder.Entity<Language>(entity =>

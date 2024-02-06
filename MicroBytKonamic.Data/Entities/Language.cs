@@ -14,4 +14,6 @@ public partial class Language
     public string Name { get; set; }
 
     public virtual ICollection<Filesfortune> Filesfortunes { get; set; } = new List<Filesfortune>();
+
+    public virtual ICollection<Fortunesofday> Fortunesofdays { get; set; } = new List<Fortunesofday>();
 }

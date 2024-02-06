@@ -13,5 +13,7 @@ public partial class Fortune
 
     public string Fortune1 { get; set; }
 
+    public virtual ICollection<Fortunesofday> Fortunesofdays { get; set; } = new List<Fortunesofday>();
+
     public virtual Filesfortune IdFilesFortunesNavigation { get; set; }
 }

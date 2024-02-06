@@ -17,15 +17,15 @@ var builder = WebApplication.CreateBuilder(args);
 //    options.Level = CompressionLevel.SmallestSize;
 //});
 
-builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
-builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
-builder.Services.AddMemoryCache();
-// MicrobytKonamic services
-builder.Services.AddMicrobytKonamic();
-
+builder.Services
+    .AddLocalization(opt => opt.ResourcesPath = "Resources")
+    .AddSingleton<IResourcesServices, ResourcesServices>()
+    .AddMemoryCache()
+    // MicrobytKonamic services
+    .AddMicrobytKonamic()
 // Add services to the container.
-builder.Services.AddAntiforgery();
-builder.Services.AddControllers();
+    .AddAntiforgery()
+    .AddControllers();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddProblemDetails();
@@ -57,11 +57,12 @@ app.UseStaticFiles(new StaticFileOptions()
     ContentTypeProvider = provider
 });
 
-var supportedCultures = new[] { "es", "en" };
+var languageService = app.Services.GetRequiredService<ILanguageServices>();
+//var supportedCultures = new[] { "es", "en" };
 var locOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture("en")
-    .AddSupportedCultures(supportedCultures)
-    .AddSupportedUICultures(supportedCultures);
+    .SetDefaultCulture(languageService.DefaultLanguage)
+    .AddSupportedCultures(languageService.SupportedLanguages)
+    .AddSupportedUICultures(languageService.SupportedLanguages);
 
 //locOptions.AddInitialRequestCultureProvider(new InterativeCultureProvider());
 //locOptions.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(ctx =>
