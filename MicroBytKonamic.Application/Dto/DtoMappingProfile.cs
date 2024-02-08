@@ -14,6 +14,7 @@ namespace MicroBytKonamic.Application.Dto
             CreateMap<Postale, FelicitacionDto>();
             CreateMap<FelicitacionDto, Postale>();
             CreateMap<FortuneOfDayDto, Fortune>();
+            CreateMap<Language, LanguageDto>();
         }
     }
 }

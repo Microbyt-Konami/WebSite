@@ -72,7 +72,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_FileExclusionFilter = (Migrations\\\d{15})|(.git)|(.vs)
 		SolutionGuid = {233C4E59-39B1-4631-942E-3AC1347043A6}
+		RESX_FileExclusionFilter = (Migrations\\\d{15})|(.git)|(.vs)
 	EndGlobalSection
 EndGlobal

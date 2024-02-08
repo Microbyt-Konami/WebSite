@@ -9,16 +9,10 @@ using System.Threading.Tasks;
 
 namespace MicroBytKonamic.Application.Services;
 
-public class ImportFortunesServices : IImportFortunesServices
+public class ImportFortunesServices(MicrobytkonamicContext _dbContext, ILogger<ImportFortunesServices> _log) : IImportFortunesServices
 {
-    private readonly MicrobytkonamicContext _dbContext;
-    private readonly ILogger<ImportFortunesServices> _log;
-
-    public ImportFortunesServices(MicrobytkonamicContext dbContext, ILogger<ImportFortunesServices> log)
-    {
-        _dbContext = dbContext;
-        _log = log;
-    }
+    private readonly MicrobytkonamicContext _dbContext = _dbContext;
+    private readonly ILogger<ImportFortunesServices> _log = _log;
 
     public async Task Import(ICollection<ImportFortunesIn> fortunes, CancellationToken cancellationToken)
     {

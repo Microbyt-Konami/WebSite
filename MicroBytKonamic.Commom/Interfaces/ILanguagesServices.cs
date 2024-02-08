@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MicroBytKonamic.Commom.Interfaces;
 
-public interface IFortunesServices
+public interface ILanguagesServices
 {
-    Task<FortuneOfDayDto?> GetIdFortuneOfDayAsync(string language, CancellationToken cancellationToken);
+    Task<LanguageDto[]> GetSupportedLanguageDtos(CancellationToken cancellationToken);
 }

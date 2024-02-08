@@ -4,14 +4,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MicroBytKonamic.Application.Services;
+namespace MicroBytKonamic.Commom.Services;
 
-public class LanguageServices : ILanguageServices
+public class LanguagesContainer
 {
-    private readonly string[] _supportedLanguages = new[] { "es", "en" };
+    private readonly string[] _supportedLanguagesName = new[] { "es", "en" };
     private readonly string _defaultLanguage = "en";
 
-    public string[] SupportedLanguages => _supportedLanguages;
+    public string[] SupportedLanguagesName => _supportedLanguagesName;
 
     public string DefaultLanguage => _defaultLanguage;
 }

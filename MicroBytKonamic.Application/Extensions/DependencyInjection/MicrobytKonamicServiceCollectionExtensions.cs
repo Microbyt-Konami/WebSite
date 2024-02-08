@@ -20,11 +20,14 @@ public static class MicrobytKonamicServiceCollectionExtensions
         services.AddAutoMapper(typeof(DtoMappingProfile));
 
         // Services
-        services.AddSingleton<FortuneOfDayServicesContainer>();
+        services.AddSingleton<FortuneOfDayContainer>();
         services.AddScoped<IRandomServices, RandomServices>();
-        services.AddScoped<ILanguageServices, LanguageServices>();
+        services.AddScoped<ILanguagesServices, LanguagesServices>();
         services.AddScoped<IPostalesServices, PostalesServices>();
         services.AddScoped<IImportFortunesServices, ImportFortunesServices>();
+        services.AddScoped<IFortunesServices, FortunesServices>();
+        services.AddScoped<IFortuneOfDayServices, FortuneOfDayServices>();
+        services.AddHostedService<FortuneOfDayBackgroundService>();
 
         return services;
     }

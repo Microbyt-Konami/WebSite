@@ -1,8 +1,11 @@
 //using Microsoft.AspNetCore.ResponseCompression;
 //using System.IO.Compression;
 
+using MicroBytKonamic.Commom.Services;
+using MicroBytKonamic.Data.DataContext;
 using MicroBytKonamic.Web.Components;
 using MicroBytKonamic.Web.Services;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,7 +23,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services
     .AddLocalization(opt => opt.ResourcesPath = "Resources")
     .AddSingleton<IResourcesServices, ResourcesServices>()
-    .AddMemoryCache()
+    .AddSingleton<LanguagesContainer>()
+    //.AddMemoryCache()
     // MicrobytKonamic services
     .AddMicrobytKonamic()
 // Add services to the container.
@@ -57,12 +61,12 @@ app.UseStaticFiles(new StaticFileOptions()
     ContentTypeProvider = provider
 });
 
-var languageService = app.Services.GetRequiredService<ILanguageServices>();
+var languageContainer = app.Services.GetRequiredService<LanguagesContainer>();
 //var supportedCultures = new[] { "es", "en" };
 var locOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture(languageService.DefaultLanguage)
-    .AddSupportedCultures(languageService.SupportedLanguages)
-    .AddSupportedUICultures(languageService.SupportedLanguages);
+    .SetDefaultCulture(languageContainer.DefaultLanguage)
+    .AddSupportedCultures(languageContainer.SupportedLanguagesName)
+    .AddSupportedUICultures(languageContainer.SupportedLanguagesName);
 
 //locOptions.AddInitialRequestCultureProvider(new InterativeCultureProvider());
 //locOptions.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(ctx =>

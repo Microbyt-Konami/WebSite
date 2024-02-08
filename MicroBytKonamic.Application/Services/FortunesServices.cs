@@ -1,4 +1,5 @@
-﻿using Microsoft.Extensions.Caching.Memory;
+﻿using AutoMapper.QueryableExtensions;
+using Microsoft.Extensions.Caching.Memory;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,56 +8,32 @@ using System.Threading.Tasks;
 
 namespace MicroBytKonamic.Application.Services;
 
-public class FortunesServices : IFortunesServices
+public class FortunesServices(MicrobytkonamicContext _dbContext, IRandomServices _random, IMapper _mapper) : IFortunesServices
 {
-    private readonly MicrobytkonamicContext _dbContext;
-    private readonly IMemoryCache _cache;
-    private readonly IRandomServices _random;
-    private readonly IMapper _mapper;
+    private readonly MicrobytkonamicContext _dbContext = _dbContext;
+    private readonly IRandomServices _random = _random;
+    private readonly IMapper _mapper = _mapper;
 
-    public FortunesServices(MicrobytkonamicContext dbContext, IMemoryCache cache, IRandomServices random, IMapper mapper)
+    public async Task<FortuneOfDayDto?> GetIdFortuneOfDayAsync(string language, CancellationToken cancellationToken)
     {
-        _dbContext = dbContext;
-        _cache = cache;
-        _random = random;
-        _mapper = mapper;
-    }
-
-    public async Task<FortuneOfDayDto> GetFortuneOfDayAsync(string language, CancellationToken cancellationToken)
-    {
-        var fortuneDto = GetFortuneOfDayCocke(language);
-
-        if (fortuneDto != null)
-            return fortuneDto;
-
-        var fortunes0 =
+        var fortunes =
         (
             from f in _dbContext.Fortunes
             join ff in _dbContext.Filesfortunes on f.IdFilesFortunes equals ff.IdFilesFortunes
             join l in _dbContext.Languages on ff.IdLanguages equals l.IdLanguages
-            select new { f, l.Culture }
+            where l.Culture == language
+            select f
         );
-        var fortunes = fortunes0.Where(f => f.Culture == language);
         var count = fortunes.Count();
 
         if (count == 0)
-        {
-            fortunes = fortunes0;
-            count = fortunes.Count();
-        }
+            return null;
 
         var idx = _random.NetInt(count);
-        var fortune = await fortunes.Skip(idx).FirstAsync(cancellationToken);
+        var fortune = await fortunes.Skip(idx).ProjectTo<FortuneOfDayDto>(_mapper.ConfigurationProvider).FirstAsync(cancellationToken);
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        fortuneDto = _mapper.Map<FortuneOfDayDto>(fortune.f);
-        SetFortuneOfDayCocke(fortune.Culture, fortuneDto);
-
-        return fortuneDto;
+        return fortune;
     }
-
-    private string GetFortuneOfDayKey(string language) => $"fortuneOfDay{language}";
-    private FortuneOfDayDto? GetFortuneOfDayCocke(string language) => _cache.Get<FortuneOfDayDto>(GetFortuneOfDayKey(language));
-    private void SetFortuneOfDayCocke(string language, FortuneOfDayDto fortune) => _cache.Set(GetFortuneOfDayKey(language), fortune, TimeSpan.FromHours(3));
 }

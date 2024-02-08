@@ -1,0 +1,15 @@
+﻿@inject LanguagesContainer options
+
+<p>
+    FortuneOfDay&nbsp;
+    @foreach (var language in options.SupportedLanguagesName)
+    {
+        @language
+        <text>&nbsp;</text>
+    }
+    Default: @options.DefaultLanguage
+</p>
+
+@code {
+
+}
