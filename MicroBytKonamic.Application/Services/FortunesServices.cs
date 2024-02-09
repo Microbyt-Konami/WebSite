@@ -30,10 +30,11 @@ public class FortunesServices(MicrobytkonamicContext _dbContext, IRandomServices
             return null;
 
         var idx = _random.NetInt(count);
-        var fortune = await fortunes.Skip(idx).ProjectTo<FortuneOfDayDto>(_mapper.ConfigurationProvider).FirstAsync(cancellationToken);
+        var fortune = await fortunes.Skip(idx).Take(1).FirstAsync(cancellationToken);
+        var fortuneDto = _mapper.Map<FortuneOfDayDto>(fortune);
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        return fortune;
+        return fortuneDto;
     }
 }

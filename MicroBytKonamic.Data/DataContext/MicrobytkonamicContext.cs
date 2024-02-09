@@ -95,9 +95,7 @@ public partial class MicrobytkonamicContext : DbContext
 
             entity.HasIndex(e => new { e.Day, e.IdLanguages }, "fortunesofday_u1");
 
-            entity.Property(e => e.IdfortunesOfDay)
-                .ValueGeneratedNever()
-                .HasColumnName("idfortunesOfDay");
+            entity.Property(e => e.IdfortunesOfDay).HasColumnName("idfortunesOfDay");
             entity.Property(e => e.Day).HasColumnType("datetime");
             entity.Property(e => e.IdFortunes).HasColumnName("idFortunes");
             entity.Property(e => e.IdLanguages).HasColumnName("idLanguages");

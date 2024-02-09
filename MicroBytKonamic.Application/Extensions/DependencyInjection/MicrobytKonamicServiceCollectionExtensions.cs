@@ -14,6 +14,7 @@ public static class MicrobytKonamicServiceCollectionExtensions
 {
     public static IServiceCollection AddMicrobytKonamic(this IServiceCollection services)
     {
+        services.AddHostedService<FortuneOfDayBackgroundService>();
         services.AddDbContext<MicrobytkonamicContext>();
 
         // Register & configure automapper
@@ -27,7 +28,6 @@ public static class MicrobytKonamicServiceCollectionExtensions
         services.AddScoped<IImportFortunesServices, ImportFortunesServices>();
         services.AddScoped<IFortunesServices, FortunesServices>();
         services.AddScoped<IFortuneOfDayServices, FortuneOfDayServices>();
-        services.AddHostedService<FortuneOfDayBackgroundService>();
 
         return services;
     }

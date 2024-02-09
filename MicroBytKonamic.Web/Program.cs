@@ -6,6 +6,7 @@ using MicroBytKonamic.Data.DataContext;
 using MicroBytKonamic.Web.Components;
 using MicroBytKonamic.Web.Services;
 using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -14,7 +14,5 @@ public class LanguagesServices(LanguagesContainer _container, MicrobytkonamicCon
     private readonly IMapper _mapper = _mapper;
 
     public async Task<LanguageDto[]> GetSupportedLanguageDtos(CancellationToken cancellationToken)
-    {
-        return await _dbContext.Languages.Where(l => _container.SupportedLanguagesName.Contains(l.Name)).ProjectTo<LanguageDto>(_mapper.ConfigurationProvider).ToArrayAsync(cancellationToken);
-    }
+        => await _dbContext.Languages.Where(l => _container.SupportedLanguagesName.Contains(l.Culture)).ProjectTo<LanguageDto>(_mapper.ConfigurationProvider).ToArrayAsync(cancellationToken);
 }

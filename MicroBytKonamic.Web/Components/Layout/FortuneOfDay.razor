@@ -1,14 +1,8 @@
-﻿@inject LanguagesContainer options
+﻿@using System.Globalization
 
-<p>
-    FortuneOfDay&nbsp;
-    @foreach (var language in options.SupportedLanguagesName)
-    {
-        @language
-        <text>&nbsp;</text>
-    }
-    Default: @options.DefaultLanguage
-</p>
+@inject FortuneOfDayContainer fortune
+
+<p>@fortune.GetFortuneOfDayByLang(CultureInfo.CurrentCulture.Name)</p>
 
 @code {
 
