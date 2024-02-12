@@ -30,11 +30,11 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li class="nav-item">
                         <a class="nav-link text-dark" href="">@shLoc["HomeNamePage"]</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" href="about">@shLoc["AboutNamePage"]</a>
-                        </li>
-                        @*  <li class="nav-item">
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link text-dark" href="about">@shLoc["AboutNamePage"]</a>
+                    </li>
+                    @*  <li class="nav-item">
                     <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                     <span class="nav-link text-dark" aria-hidden="true">Página Principal</span>
                     </NavLink>
@@ -44,20 +44,23 @@
                     <span class="nav-link text-dark" aria-hidden="true">Acerca de</span>
                     </NavLink>
                     </li> *@
-                        @*  <li class="nav-item">
+                    @*  <li class="nav-item">
                     <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                     </li> *@
-                        <li class="nav-item">
+                    <li class="nav-item">
                         <a class="nav-link text-dark"><CultureSelector @rendermode="InteractiveServer" /></a>
-                        </li>
-                    </ul>
-                </div>
+                    </li>
+                </ul>
             </div>
-        </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @Body
+        </div>
+        <div class="row-4">
+            <FortuneOfDay></FortuneOfDay>
+        </div>
+    </nav>
+</header>
+<div class="container">
+    <main role="main" class="pb-3">
+        @Body
     </main>
 </div>
 

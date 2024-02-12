@@ -1,0 +1,47 @@
+{
+  "_Comment_filename": "type:string filename de fortune",
+  "_Comment_language": "type:string? Default en",
+  "_Comment_topic": "type:string? Default filename until first dot. Example => filename: murphy.fortunes.u8 => topic: murphy",
+  "_Comment_skip": "type:bool?. If active skip file",
+  "files": [
+    {
+      "filename": "proverbios.fortunes.u8",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "libertad.fortunes.u8",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "informatica.fortunes.u8",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "leydemurphy.fortunes.u8",
+      "topic": "ley de murphy",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "filosofia.fortunes.u8",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "deprimente.fortunes.u8",
+      "language": "es",
+      "skip": false
+    },
+    {
+      "filename": "general.fortunes",
+      "skip": false
+    },
+    {
+      "filename": "general.fortunes.2",
+      "skip": false
+    }
+  ]
+}

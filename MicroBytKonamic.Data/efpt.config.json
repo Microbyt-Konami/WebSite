@@ -1,0 +1,65 @@
+﻿{
+   "CodeGenerationMode": 4,
+   "ContextClassName": "MicrobytkonamicContext",
+   "ContextNamespace": null,
+   "DefaultDacpacSchema": null,
+   "FilterSchemas": false,
+   "IncludeConnectionString": false,
+   "ModelNamespace": null,
+   "OutputContextPath": "DataContext",
+   "OutputPath": "Entities",
+   "PreserveCasingWithRegex": true,
+   "ProjectRootNamespace": "MicroBytKonamic.Data",
+   "Schemas": null,
+   "SelectedHandlebarsLanguage": 2,
+   "SelectedToBeGenerated": 0,
+   "T4TemplatePath": null,
+   "Tables": [
+      {
+         "Name": "filesfortunes",
+         "ObjectType": 0
+      },
+      {
+         "Name": "fortunes",
+         "ObjectType": 0
+      },
+      {
+         "Name": "fortunesofday",
+         "ObjectType": 0
+      },
+      {
+         "Name": "languages",
+         "ObjectType": 0
+      },
+      {
+         "Name": "postales",
+         "ObjectType": 0
+      },
+      {
+         "Name": "topicsfortunes",
+         "ObjectType": 0
+      }
+   ],
+   "UiHint": "microbytkonamic",
+   "UncountableWords": null,
+   "UseBoolPropertiesWithoutDefaultSql": false,
+   "UseDatabaseNames": false,
+   "UseDateOnlyTimeOnly": true,
+   "UseDbContextSplitting": false,
+   "UseDecimalDataAnnotationForSprocResult": true,
+   "UseFluentApiOnly": true,
+   "UseHandleBars": false,
+   "UseHierarchyId": false,
+   "UseInflector": true,
+   "UseLegacyPluralizer": false,
+   "UseManyToManyEntity": false,
+   "UseNoDefaultConstructor": false,
+   "UseNoNavigations": false,
+   "UseNoObjectFilter": false,
+   "UseNodaTime": false,
+   "UseNullableReferences": false,
+   "UseSchemaFolders": false,
+   "UseSchemaNamespaces": false,
+   "UseSpatial": false,
+   "UseT4": false
+}

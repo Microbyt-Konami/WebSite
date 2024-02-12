@@ -1,8 +1,12 @@
 //using Microsoft.AspNetCore.ResponseCompression;
 //using System.IO.Compression;
 
+using MicroBytKonamic.Commom.Services;
+using MicroBytKonamic.Data.DataContext;
 using MicroBytKonamic.Web.Components;
 using MicroBytKonamic.Web.Services;
+using Microsoft.EntityFrameworkCore;
+using System.Globalization;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,15 +21,16 @@ var builder = WebApplication.CreateBuilder(args);
 //    options.Level = CompressionLevel.SmallestSize;
 //});
 
-builder.Services.AddLocalization(opt => opt.ResourcesPath = "Resources");
-
-builder.Services.AddSingleton<IResourcesServices, ResourcesServices>();
-// MicrobytKonamic services
-builder.Services.AddMicrobytKonamic();
-
+builder.Services
+    .AddLocalization(opt => opt.ResourcesPath = "Resources")
+    .AddSingleton<IResourcesServices, ResourcesServices>()
+    .AddSingleton<LanguagesContainer>()
+    //.AddMemoryCache()
+    // MicrobytKonamic services
+    .AddMicrobytKonamic()
 // Add services to the container.
-builder.Services.AddAntiforgery();
-builder.Services.AddControllers();
+    .AddAntiforgery()
+    .AddControllers();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddProblemDetails();
@@ -57,11 +62,12 @@ app.UseStaticFiles(new StaticFileOptions()
     ContentTypeProvider = provider
 });
 
-var supportedCultures = new[] { "es", "en" };
+var languageContainer = app.Services.GetRequiredService<LanguagesContainer>();
+//var supportedCultures = new[] { "es", "en" };
 var locOptions = new RequestLocalizationOptions()
-    .SetDefaultCulture("en")
-    .AddSupportedCultures(supportedCultures)
-    .AddSupportedUICultures(supportedCultures);
+    .SetDefaultCulture(languageContainer.DefaultLanguage)
+    .AddSupportedCultures(languageContainer.SupportedLanguagesName)
+    .AddSupportedUICultures(languageContainer.SupportedLanguagesName);
 
 //locOptions.AddInitialRequestCultureProvider(new InterativeCultureProvider());
 //locOptions.AddInitialRequestCultureProvider(new CustomRequestCultureProvider(ctx =>

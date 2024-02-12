@@ -14,7 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución", "Elementos de la solución", "{B9AC9255-5EC1-46EB-8844-88689997EFC5}"
 	ProjectSection(SolutionItems) = preProject
 		..\.gitignore = ..\.gitignore
-		TODO.rd = TODO.rd
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Tests", "..\MicroBytKonamic.Tests\MicroBytKonamic.Tests.csproj", "{415C716A-658D-4988-83E7-144CC680CDD8}"
@@ -27,6 +26,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 	ProjectSection(SolutionItems) = preProject
 		Resources.Designer.t4 = Resources.Designer.t4
 	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Tools.Fortunes", "..\MicroBytKonamic.Tools.Fortunes\MicroBytKonamic.Tools.Fortunes.csproj", "{DF2B1E63-A44E-4220-B2D7-7E6E7897EEA6}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -62,12 +63,16 @@ Global
 		{8379E054-4C90-4D12-86AC-FBC6310517E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8379E054-4C90-4D12-86AC-FBC6310517E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8379E054-4C90-4D12-86AC-FBC6310517E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DF2B1E63-A44E-4220-B2D7-7E6E7897EEA6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DF2B1E63-A44E-4220-B2D7-7E6E7897EEA6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DF2B1E63-A44E-4220-B2D7-7E6E7897EEA6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DF2B1E63-A44E-4220-B2D7-7E6E7897EEA6}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_FileExclusionFilter = (Migrations\\\d{15})|(.git)|(.vs)
 		SolutionGuid = {233C4E59-39B1-4631-942E-3AC1347043A6}
+		RESX_FileExclusionFilter = (Migrations\\\d{15})|(.git)|(.vs)
 	EndGlobalSection
 EndGlobal

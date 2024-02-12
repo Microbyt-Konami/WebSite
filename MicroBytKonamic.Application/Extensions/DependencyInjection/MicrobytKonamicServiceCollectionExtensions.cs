@@ -1,5 +1,6 @@
 ﻿using MicroBytKonamic.Application.Dto;
 using MicroBytKonamic.Application.Services;
+using MicroBytKonamic.Commom.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -11,14 +12,24 @@ namespace Microsoft.Extensions.DependencyInjection;
 
 public static class MicrobytKonamicServiceCollectionExtensions
 {
-    public static void AddMicrobytKonamic(this IServiceCollection services)
+    public static IServiceCollection AddMicrobytKonamic(this IServiceCollection services)
     {
+        //services.AddHostedService<FortuneOfDayBackgroundService>();
+        services.AddHostedService(s => FortuneOfDayBackgroundService.Create(s, 80));
         services.AddDbContext<MicrobytkonamicContext>();
 
         // Register & configure automapper
         services.AddAutoMapper(typeof(DtoMappingProfile));
 
         // Services
+        services.AddSingleton<FortuneOfDayContainer>();
+        services.AddScoped<IRandomServices, RandomServices>();
+        services.AddScoped<ILanguagesServices, LanguagesServices>();
         services.AddScoped<IPostalesServices, PostalesServices>();
+        services.AddScoped<IImportFortunesServices, ImportFortunesServices>();
+        services.AddScoped<IFortunesServices, FortunesServices>();
+        services.AddScoped<IFortuneOfDayServices, FortuneOfDayServices>();
+
+        return services;
     }
 }

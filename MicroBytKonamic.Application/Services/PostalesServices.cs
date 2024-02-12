@@ -3,22 +3,13 @@ using Microsoft.Extensions.Localization;
 
 namespace MicroBytKonamic.Application.Services;
 
-internal class PostalesServices : IPostalesServices
+internal class PostalesServices(MicrobytkonamicContext _dbContext, IMapper _mapper, IResourcesServices _resourcesServices, IConfiguration _configuration/*, IStringLocalizer _localizer*/) : IPostalesServices
 {
-    private readonly MicrobytkonamicContext _dbContext;
-    private readonly IMapper _mapper;
-    private readonly IResourcesServices _resourcesServices;
-    private readonly IConfiguration _configuration;
-    private readonly IStringLocalizer _localizer;
-
-    public PostalesServices(MicrobytkonamicContext dbContext, IMapper mapper, IResourcesServices resourcesServices, IConfiguration configuration, IStringLocalizer<SharedResource> localizer)
-    {
-        _dbContext = dbContext;
-        _mapper = mapper;
-        _resourcesServices = resourcesServices;
-        _configuration = configuration;
-        _localizer = localizer;
-    }
+    private readonly MicrobytkonamicContext _dbContext = _dbContext;
+    private readonly IMapper _mapper = _mapper;
+    private readonly IResourcesServices _resourcesServices = _resourcesServices;
+    private readonly IConfiguration _configuration = _configuration;
+    //private readonly IStringLocalizer _localizer= _localizer;
 
     public int CalcAnyo(DateTime date)
     {

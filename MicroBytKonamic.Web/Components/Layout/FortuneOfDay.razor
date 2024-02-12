@@ -1,0 +1,5 @@
+﻿@using System.Globalization
+
+@inject FortuneOfDayContainer fortune
+
+<p>@fortune.GetFortuneOfDayByLang(CultureInfo.CurrentCulture.Name)</p>

@@ -1,5 +1,4 @@
-﻿using MicroBytKonamic.Commom.Dto;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,6 +13,8 @@ namespace MicroBytKonamic.Application.Dto
             // Posts
             CreateMap<Postale, FelicitacionDto>();
             CreateMap<FelicitacionDto, Postale>();
+            CreateMap<Fortune, FortuneOfDayDto>();
+            CreateMap<Language, LanguageDto>();
         }
     }
 }
