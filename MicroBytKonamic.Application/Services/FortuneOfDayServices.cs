@@ -8,16 +8,15 @@ using System.Threading.Tasks;
 
 namespace MicroBytKonamic.Application.Services;
 
-public class FortuneOfDayServices(LanguagesContainer _languagesContainer, FortuneOfDayContainer _container, MicrobytkonamicContext _dbContext, IFortunesServices _fortunesServices, ILanguagesServices _languagesServices)
+public class FortuneOfDayServices(FortuneOfDayContainer _container, MicrobytkonamicContext _dbContext, IFortunesServices _fortunesServices, ILanguagesServices _languagesServices)
     : IFortuneOfDayServices
 {
-    private readonly LanguagesContainer _languagesContainer = _languagesContainer;
     private readonly FortuneOfDayContainer _container = _container;
     private readonly MicrobytkonamicContext _dbContext = _dbContext;
     private readonly IFortunesServices _fortunesServices = _fortunesServices;
     private readonly ILanguagesServices _languagesServices = _languagesServices;
 
-    public async Task LoadFortuneOfDayIntoContainerAsync(DateTime day, CancellationToken cancellationToken)
+    public async Task LoadFortuneOfDayIntoContainerAsync(DateTime day, int? maxCharSize, CancellationToken cancellationToken)
     {
         if (_container.Day.HasValue && _container.Day.Value.Date == day.Date)
             return;
@@ -27,7 +26,7 @@ public class FortuneOfDayServices(LanguagesContainer _languagesContainer, Fortun
 
         cancellationToken.ThrowIfCancellationRequested();
 
-        await AddFortuneOfDayIntoContainerFromBDAsync(day, cancellationToken);
+        await AddFortuneOfDayIntoContainerFromBDAsync(day, maxCharSize, cancellationToken);
         cancellationToken.ThrowIfCancellationRequested();
     }
 
@@ -64,7 +63,7 @@ public class FortuneOfDayServices(LanguagesContainer _languagesContainer, Fortun
         return true;
     }
 
-    public async Task AddFortuneOfDayIntoContainerFromBDAsync(DateTime day, CancellationToken cancellationToken)
+    public async Task AddFortuneOfDayIntoContainerFromBDAsync(DateTime day, int? maxCharSize, CancellationToken cancellationToken)
     {
         var languages = await _languagesServices.GetSupportedLanguageDtos(cancellationToken);
         cancellationToken.ThrowIfCancellationRequested();
@@ -74,7 +73,7 @@ public class FortuneOfDayServices(LanguagesContainer _languagesContainer, Fortun
         {
             cancellationToken.ThrowIfCancellationRequested();
 
-            var fortune = await _fortunesServices.GetIdFortuneOfDayAsync(lang.Culture, cancellationToken);
+            var fortune = await _fortunesServices.GetIdFortuneOfDayAsync(lang.Culture, maxCharSize, cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
 
             if (fortune != null)

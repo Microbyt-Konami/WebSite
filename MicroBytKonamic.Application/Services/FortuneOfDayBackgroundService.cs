@@ -31,6 +31,7 @@ public class FortuneOfDayBackgroundService : BackgroundService
     private SemaphoreSlim loopLock = new SemaphoreSlim(1, 1);
     private CancellationTokenSource? cancellationTokenSource;
     private Timer? timer;
+    private int? _maxCharSize;
 
     public FortuneOfDayBackgroundService(IServiceScopeFactory serviceScopeFactory/*, IServiceScope serviceScope*/)
     {
@@ -41,6 +42,9 @@ public class FortuneOfDayBackgroundService : BackgroundService
         _fortuneOfDayServices = _serviceProvider.GetRequiredService<IFortuneOfDayServices>();
         _logger = _serviceProvider.GetRequiredService<ILogger<FortuneOfDayBackgroundService>>();
     }
+
+    public static FortuneOfDayBackgroundService Create(IServiceProvider serviceProvider, int maxCharSize)
+        => new FortuneOfDayBackgroundService(serviceProvider.GetRequiredService<IServiceScopeFactory>()) { _maxCharSize = maxCharSize };
 
     public override Task StartAsync(CancellationToken cancellationToken)
     {
@@ -100,7 +104,7 @@ public class FortuneOfDayBackgroundService : BackgroundService
 
         try
         {
-            await _fortuneOfDayServices.LoadFortuneOfDayIntoContainerAsync(day, cancellationToken);
+            await _fortuneOfDayServices.LoadFortuneOfDayIntoContainerAsync(day, _maxCharSize, cancellationToken);
             cancellationToken.ThrowIfCancellationRequested();
         }
         catch (Exception ex)

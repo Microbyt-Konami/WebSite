@@ -14,11 +14,12 @@ public class FortunesServices(MicrobytkonamicContext _dbContext, IRandomServices
     private readonly IRandomServices _random = _random;
     private readonly IMapper _mapper = _mapper;
 
-    public async Task<FortuneOfDayDto?> GetIdFortuneOfDayAsync(string language, CancellationToken cancellationToken)
+    public async Task<FortuneOfDayDto?> GetIdFortuneOfDayAsync(string language, int? maxCharSize = null, CancellationToken cancellationToken = default)
     {
         var fortunes =
         (
             from f in _dbContext.Fortunes
+            where !maxCharSize.HasValue || f.Fortune1.Length <= maxCharSize.Value
             join ff in _dbContext.Filesfortunes on f.IdFilesFortunes equals ff.IdFilesFortunes
             join l in _dbContext.Languages on ff.IdLanguages equals l.IdLanguages
             where l.Culture == language
