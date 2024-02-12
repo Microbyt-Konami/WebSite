@@ -12,6 +12,7 @@
 		<Product>ProductName</Product>
 		<Description />
 		<Copyright>© 2023-4 - MicroBy Konamic</Copyright>
+		<PackageLicenseFile>LICENSE</PackageLicenseFile>
 	</PropertyGroup>
 
 	<ItemGroup>
@@ -22,6 +23,13 @@
 
 	<ItemGroup>
 		<Folder Include="wwwroot\unity\" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <None Include="..\LICENSE">
+	    <Pack>True</Pack>
+	    <PackagePath>\</PackagePath>
+	  </None>
 	</ItemGroup>
 
 	<ItemGroup>
