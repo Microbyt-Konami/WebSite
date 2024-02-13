@@ -1,4 +1,4 @@
-# WebSite 2
+# WebSite
 Website sitio www.microbytkonamic.es
 
 - [LICENSE](LICENSE)
