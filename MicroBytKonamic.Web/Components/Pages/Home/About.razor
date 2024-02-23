@@ -1,8 +1,10 @@
 ﻿@page "/about"
+@attribute [StreamRendering]
 @using System.Text
 @inject IStringLocalizer<About> loc
 @inject IStringLocalizer<SharedResource> shLoc
-@inject IHttpClientFactory httpClient;
+@inject IHttpClientFactory httpClient
+@inherits IMemoryCache _cache;
 
 <MKPageTitle Title=@shLoc["AboutNamePage"] />
 
@@ -48,7 +50,7 @@
     {
         var http = httpClient.CreateClient("github");
 
-        releaseNotes = await http!.GetMarkdownFromGitHubRawAsync("Release notes.md");
+        releaseNotes = _cache.Get("releaseNotes") ?? await http!.GetMarkdownFromGitHubRawAsync("Release notes.md");
         thirdPartyLicenses = await http!.GetMarkdownFromGitHubRawAsync("Third party licenses.md");
     }
 }

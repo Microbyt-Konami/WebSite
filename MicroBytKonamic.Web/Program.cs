@@ -25,7 +25,7 @@ builder.Services
     .AddLocalization(opt => opt.ResourcesPath = "Resources")
     .AddSingleton<IResourcesServices, ResourcesServices>()
     .AddSingleton<LanguagesContainer>()
-    //.AddMemoryCache()
+    .AddMemoryCache()
     // MicrobytKonamic services
     .AddMicrobytKonamic()
 // Add services to the container.
