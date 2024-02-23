@@ -2,14 +2,15 @@
 
 ## Web MicrobytKonami
 
-- [AutoMapper](https://github.com/AutoMapper/AutoMapper/blob/master/LICENSE.txt)
-- [ASP.NET Core](https://github.com/dotnet/aspnetcore/blob/main/LICENSE.txt)
-- [Entity Framework Core](https://github.com/dotnet/efcore/blob/main/LICENSE.txt)
-- [.NET](https://github.com/dotnet/runtime/blob/main/LICENSE.TXT)
-- [NReco.Logging.File](https://github.com/nreco/logging/blob/master/LICENSE)
-- [Pomelo.EntityFrameworkCore.MySql](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/blob/master/LICENSE)
-- [SmartFormat](https://github.com/axuno/SmartFormat/blob/main/LICENSE.md)
+- [AutoMapper](https://github.com/AutoMapper/AutoMapper/raw/master/LICENSE.txt)
+- [ASP.NET Core](https://github.com/dotnet/aspnetcore/raw/main/LICENSE.txt)
+- [Entity Framework Core](https://github.com/dotnet/efcore/raw/main/LICENSE.txt)
+- [.NET](https://github.com/dotnet/runtime/raw/main/LICENSE.TXT)
+- [NReco.Logging.File](https://github.com/nreco/logging/raw/master/LICENSE)
+- [Pomelo.EntityFrameworkCore.MySql](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/raw/master/LICENSE)
+- [SmartFormat](https://github.com/axuno/SmartFormat/raw/main/LICENSE.md)
+- [Markdig](https://github.com/xoofx/markdig/raw/master/license.txt)
 
 # Juegos/Aplicaciones multimedia
 
-- [Postal navideña](https://github.com/Microbyt-Konami/Navidad2023/blob/main/Third%20party%20licenses.md)
+- [Postal navideña](https://github.com/Microbyt-Konami/Navidad2023/raw/main/Third%20party%20licenses.md)

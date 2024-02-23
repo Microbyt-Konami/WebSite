@@ -1,6 +1,8 @@
 ﻿@page "/about"
+@using Markdig
 @inject IStringLocalizer<About> loc
 @inject IStringLocalizer<SharedResource> shLoc
+@inject IHttpClientFactory httpClient;
 
 <MKPageTitle Title=@shLoc["AboutNamePage"] />
 
@@ -24,4 +26,29 @@
             </p>
         </div>
     </div>
+    <div class="row">
+        <fieldset>
+            <legend>Notas de la versión</legend>
+            <div>@((MarkupString)releaseNotes)</div>
+        </fieldset>
+    </div>
+    <div class="row">
+        <fieldset>
+            <legend>Licencias de terceros</legend>
+            <div>@((MarkupString)thirdPartyLicenses)</div>
+        </fieldset>
+    </div>
 </div>
+
+@code
+{
+    string releaseNotes = "", thirdPartyLicenses="";
+
+    protected override async Task OnInitializedAsync()
+    {
+        var http = httpClient.CreateClient("github");
+
+        releaseNotes = Markdown.ToHtml(await http.GetStringAsync("Release notes.md"));
+        thirdPartyLicenses = Markdown.ToHtml(await http.GetStringAsync("Third party licenses.md"));
+    }
+}
