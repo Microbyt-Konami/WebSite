@@ -1,5 +1,5 @@
 ﻿@page "/about"
-@using Markdig
+@using System.Text
 @inject IStringLocalizer<About> loc
 @inject IStringLocalizer<SharedResource> shLoc
 @inject IHttpClientFactory httpClient;
@@ -42,13 +42,13 @@
 
 @code
 {
-    string releaseNotes = "", thirdPartyLicenses="";
+    string releaseNotes = "", thirdPartyLicenses = "";
 
     protected override async Task OnInitializedAsync()
     {
         var http = httpClient.CreateClient("github");
 
-        releaseNotes = Markdown.ToHtml(await http.GetStringAsync("Release notes.md"));
-        thirdPartyLicenses = Markdown.ToHtml(await http.GetStringAsync("Third party licenses.md"));
+        releaseNotes = await http!.GetMarkdownFromGitHubRawAsync("Release notes.md");
+        thirdPartyLicenses = await http!.GetMarkdownFromGitHubRawAsync("Third party licenses.md");
     }
 }

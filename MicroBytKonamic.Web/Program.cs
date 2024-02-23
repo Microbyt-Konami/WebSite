@@ -33,7 +33,7 @@ builder.Services
     .AddControllers();
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
-builder.Services.AddProblemDetails().AddHttpClient("github", client => client.BaseAddress = new Uri("https://github.com/Microbyt-Konami/Navidad2023/raw/main/"));
+builder.Services.AddProblemDetails().AddHttpClient("github", client => client.BaseAddress = new Uri("https://github.com/Microbyt-Konami/WebSite/raw/main/"));
 
 var app = builder.Build();
 
