@@ -1,5 +1,6 @@
-Licenses
---------
+# Licenses
+
+## Web MicrobytKonami
 
 - [AutoMapper](https://github.com/AutoMapper/AutoMapper/blob/master/LICENSE.txt)
 - [ASP.NET Core](https://github.com/dotnet/aspnetcore/blob/main/LICENSE.txt)
@@ -8,3 +9,7 @@ Licenses
 - [NReco.Logging.File](https://github.com/nreco/logging/blob/master/LICENSE)
 - [Pomelo.EntityFrameworkCore.MySql](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/blob/master/LICENSE)
 - [SmartFormat](https://github.com/axuno/SmartFormat/blob/main/LICENSE.md)
+
+# Juegos/Aplicaciones multimedia
+
+- [Postal navideña](https://github.com/Microbyt-Konami/Navidad2023/blob/main/Third%20party%20licenses.md)
