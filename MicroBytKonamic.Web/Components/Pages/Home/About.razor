@@ -1,32 +1,38 @@
 ﻿@page "/about"
 @attribute [StreamRendering]
 @using System.Text
+@using Microsoft.Extensions.Caching.Memory
 @inject IStringLocalizer<About> loc
 @inject IStringLocalizer<SharedResource> shLoc
 @inject IHttpClientFactory httpClient
-@inherits IMemoryCache _cache;
+@inject IMemoryCache _cache
 
 <MKPageTitle Title=@shLoc["AboutNamePage"] />
 
 <div class="content">
     <div class="row">
-        @* <=576 sm:>=576 md:>=768 lg:>=992 xl:>=1200 xxl>=1400 *@
-        @* col-3 *@
-        <div class="col-7 col-sm-6 col-md-5 col-lg-4 col-xl-3 col-xxl-3">
-            <img src="images/padrehermano.png" />
-        </div>
-        <div class="col">
-            <p>@loc["ProjectDescription1"]</p>
-            <p>@loc["ProjectDescription2"]</p>
-            <p>
-                <span class="text-nombre1">Microbyt</span><span class="text-nombre2">Konami</span> viene de dos palabras:
-                <ul>
-                    <li><span class="text-nombre11">Microbyt</span> : @loc["MicrobytDescription"]</li>
+        <fieldset>
+            <legend>História</legend>
+            <div class="row">
+                @* <=576 sm:>=576 md:>=768 lg:>=992 xl:>=1200 xxl>=1400 *@
+                @* col-3 *@
+                <div class="col-7 col-sm-6 col-md-5 col-lg-4 col-xl-3 col-xxl-3">
+                    <img src="images/padrehermano.png" />
+                </div>
+                <div class="col">
+                    <p>@loc["ProjectDescription1"]</p>
+                    <p>@loc["ProjectDescription2"]</p>
+                    <p>
+                        <span class="text-nombre1">Microbyt</span><span class="text-nombre2">Konami</span> viene de dos palabras:
+                        <ul>
+                            <li><span class="text-nombre11">Microbyt</span> : @loc["MicrobytDescription"]</li>
 
-                    <li><span class="text-nombre21">Konami</span>: @loc["KonamiDescription"]</li>
-                </ul>
-            </p>
-        </div>
+                            <li><span class="text-nombre21">Konami</span>: @loc["KonamiDescription"]</li>
+                        </ul>
+                    </p>
+                </div>
+            </div>
+        </fieldset>
     </div>
     <div class="row">
         <fieldset>
@@ -44,13 +50,13 @@
 
 @code
 {
-    string releaseNotes = "", thirdPartyLicenses = "";
+        string releaseNotes = "", thirdPartyLicenses = "";
 
     protected override async Task OnInitializedAsync()
     {
         var http = httpClient.CreateClient("github");
 
-        releaseNotes = _cache.Get("releaseNotes") ?? await http!.GetMarkdownFromGitHubRawAsync("Release notes.md");
-        thirdPartyLicenses = await http!.GetMarkdownFromGitHubRawAsync("Third party licenses.md");
+        releaseNotes = await _cache.GetOrCreateAsync("releaseNotes", cache => http!.GetMarkdownFromGitHubRawAsync("Release notes.md"));
+        thirdPartyLicenses = await _cache.GetOrCreateAsync("thirdPartyLicenses", cache => http!.GetMarkdownFromGitHubRawAsync("Third party licenses.md"));
     }
 }
