@@ -77,7 +77,7 @@
         await Task.WhenAny(LoadReleaseNotes(), LoadThirdPartyLicenses(), LoadReleaseNotesNavidad2023(), LoadThirdPartyLicensesNavidad2023());
 
         async Task LoadReleaseNotes() => releaseNotes = await _cache.GetOrCreateAsync("releaseNotes", cache => http!.GetMarkdownFromGitHubRawAsync("Release notes.md"));
-        async Task LoadThirdPartyLicenses() => thirdPartyLicenses = await _cache.GetOrCreateAsync("thirdPartyLicenses", cache => http!.GetMarkdownFromGitHubRawAsync("Third party licenses.md"));
+        async Task LoadThirdPartyLicenses() => thirdPartyLicenses = await _cache.GetOrCreateAsync("thirdPartyLicenses", cache => http!.GetMarkdownFromGitHubRawUtf8Async("Third party licenses.md"));
         async Task LoadReleaseNotesNavidad2023() => releaseNotesNavidad2023 = await _cache.GetOrCreateAsync("releaseNotesNavidad2023", cache => httpNavidad2023!.GetMarkdownFromGitHubRawUtf8Async("Release notes.md"));
         async Task LoadThirdPartyLicensesNavidad2023() => thirdPartyLicensesNavidad2023 = await _cache.GetOrCreateAsync("thirdPartyLicensesNavidad2023", cache => httpNavidad2023!.GetMarkdownFromGitHubRawAsync("Third party licenses.md"));
     }
