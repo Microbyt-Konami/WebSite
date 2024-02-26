@@ -135,4 +135,7 @@
   <data name="GoToHomeText" xml:space="preserve">
     <value>Ir página principal</value>
   </data>
+  <data name="LoadingText" xml:space="preserve">
+    <value>Cargando ...</value>
+  </data>
 </root>
