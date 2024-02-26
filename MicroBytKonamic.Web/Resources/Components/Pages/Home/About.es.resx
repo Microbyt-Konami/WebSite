@@ -129,4 +129,13 @@
   <data name="KonamiDescription" xml:space="preserve">
     <value>Konami empresa de mi infancia de videojuegos y además konami2001es que es el usuario de mi hermano de twitter. Falleció hace un mes, 3 de Noviembre y es un homenaje al él.</value>
   </data>
+  <data name="HistoryLegend" xml:space="preserve">
+    <value>Historia</value>
+  </data>
+  <data name="ReleaseNotesLegend" xml:space="preserve">
+    <value>Notas de la versión</value>
+  </data>
+  <data name="ThirdPartyLicensesLegend" xml:space="preserve">
+    <value>Licencias de terceros</value>
+  </data>
 </root>
