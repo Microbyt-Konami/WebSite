@@ -16,8 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Elementos de la solución",
 		..\.gitignore = ..\.gitignore
 		..\LICENSE = ..\LICENSE
 		..\README.md = ..\README.md
-		..\docs\Release notes.md = ..\docs\Release notes.md
-		..\docs\Third party licenses.md = ..\docs\Third party licenses.md
+		..\Release notes.md = ..\Release notes.md
+		..\Third party licenses.md = ..\Third party licenses.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MicroBytKonamic.Tests", "..\MicroBytKonamic.Tests\MicroBytKonamic.Tests.csproj", "{415C716A-658D-4988-83E7-144CC680CDD8}"
@@ -76,7 +76,7 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {233C4E59-39B1-4631-942E-3AC1347043A6}
 		RESX_FileExclusionFilter = (Migrations\\\d{15})|(.git)|(.vs)
+		SolutionGuid = {233C4E59-39B1-4631-942E-3AC1347043A6}
 	EndGlobalSection
 EndGlobal
