@@ -34,6 +34,7 @@ builder.Services
 builder.Services.AddRazorComponents()
     .AddInteractiveServerComponents();
 builder.Services.AddProblemDetails().AddHttpClient("github", client => client.BaseAddress = new Uri("https://github.com/Microbyt-Konami/WebSite/raw/main/"));
+builder.Services.AddProblemDetails().AddHttpClient("github Navidad2023", client => client.BaseAddress = new Uri("https://github.com/Microbyt-Konami/Navidad2023/raw/main/"));
 
 var app = builder.Build();
 

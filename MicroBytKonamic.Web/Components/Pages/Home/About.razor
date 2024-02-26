@@ -1,5 +1,6 @@
 ﻿@page "/about"
 @attribute [StreamRendering]
+@rendermode InteractiveServer
 @using System.Text
 @using Microsoft.Extensions.Caching.Memory
 @inject IStringLocalizer<About> loc
@@ -35,28 +36,49 @@
         </fieldset>
     </div>
     <div class="row">
-        <fieldset>
-            <legend>@loc["ReleaseNotesLegend"]</legend>
-            <div>@((MarkupString)releaseNotes)</div>
-        </fieldset>
-    </div>
-    <div class="row">
-        <fieldset>
-            <legend>@loc["ThirdPartyLicensesLegend"]</legend>
-            <div>@((MarkupString)thirdPartyLicenses)</div>
-        </fieldset>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#releaseNotes" type="button" role="tab" aria-controls="releaseNotes" aria-selected="true">@loc["ReleaseNotesLegend"]</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#thirdPartyLicenses" type="button" role="tab" aria-controls="thirdPartyLicenses" aria-selected="false">@loc["ThirdPartyLicensesLegend"]</button>
+            </li>
+            <li class="nav-item dropdown" role="presentation">
+                <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">@shLoc["ChristmasCardNamePage"]</a>
+                <ul class="dropdown-menu">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="home-tab" data-bs-toggle="tab" data-bs-target="#releaseNotesNavidad2023" type="button" role="tab" aria-controls="releaseNotesNavidad2023" aria-selected="true">@loc["ReleaseNotesLegend"]</button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#thirdPartyLicensesNavidad2023" type="button" role="tab" aria-controls="thirdPartyLicensesNavidad2023" aria-selected="false">@loc["ThirdPartyLicensesLegend"]</button>
+                    </li>
+                </ul>
+            </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+            <div class="tab-pane fade show active" id="releaseNotes" role="tabpanel" aria-labelledby="releaseNotes-tab">@((MarkupString)(releaseNotes ?? "Loading ..."))</div>
+            <div class="tab-pane fade" id="thirdPartyLicenses" role="tabpanel" aria-labelledby="thirdPartyLicenses-tab">@((MarkupString)(thirdPartyLicenses ?? "Loading ..."))</div>
+            <div class="tab-pane fade show active" id="releaseNotesNavidad2023" role="tabpanel" aria-labelledby="releaseNotesNavidad2023-tab">@((MarkupString)(releaseNotesNavidad2023 ?? "Loading ..."))</div>
+            <div class="tab-pane fade" id="thirdPartyLicensesNavidad2023" role="tabpanel" aria-labelledby="thirdPartyLicensesNavidad2023-tab">@((MarkupString)(thirdPartyLicensesNavidad2023 ?? "Loading ..."))</div>
+        </div>
     </div>
 </div>
 
 @code
 {
-    string releaseNotes = "", thirdPartyLicenses = "";
+    string? releaseNotes, thirdPartyLicenses;
+    string? releaseNotesNavidad2023, thirdPartyLicensesNavidad2023;
 
-    protected override async Task OnInitializedAsync()
+    protected async override Task OnInitializedAsync()
     {
         var http = httpClient.CreateClient("github");
+        var httpNavidad2023 = httpClient.CreateClient("github Navidad2023");
 
-        releaseNotes = await _cache.GetOrCreateAsync("releaseNotes", cache => http!.GetMarkdownFromGitHubRawAsync("Release notes.md"));
-        thirdPartyLicenses = await _cache.GetOrCreateAsync("thirdPartyLicenses", cache => http!.GetMarkdownFromGitHubRawAsync("Third party licenses.md"));
+        await Task.WhenAny(LoadReleaseNotes(), LoadThirdPartyLicenses(), LoadReleaseNotesNavidad2023(), LoadThirdPartyLicensesNavidad2023());
+
+        async Task LoadReleaseNotes() => releaseNotes = await _cache.GetOrCreateAsync("releaseNotes", cache => http!.GetMarkdownFromGitHubRawAsync("Release notes.md"));
+        async Task LoadThirdPartyLicenses() => thirdPartyLicenses = await _cache.GetOrCreateAsync("thirdPartyLicenses", cache => http!.GetMarkdownFromGitHubRawAsync("Third party licenses.md"));
+        async Task LoadReleaseNotesNavidad2023() => releaseNotesNavidad2023 = await _cache.GetOrCreateAsync("releaseNotesNavidad2023", cache => httpNavidad2023!.GetMarkdownFromGitHubRawUtf8Async("Release notes.md"));
+        async Task LoadThirdPartyLicensesNavidad2023() => thirdPartyLicensesNavidad2023 = await _cache.GetOrCreateAsync("thirdPartyLicensesNavidad2023", cache => httpNavidad2023!.GetMarkdownFromGitHubRawAsync("Third party licenses.md"));
     }
 }
