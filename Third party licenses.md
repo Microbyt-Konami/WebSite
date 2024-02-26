@@ -10,7 +10,3 @@
 - <a href="https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/raw/master/LICENSE" target="_blank">Pomelo.EntityFrameworkCore.MySql</a>
 - <a href="https://github.com/SmartFormat/SmartFormat/raw/master/LICENSE.txt" target="_blank">SmartFormat</a>
 - <a href="https://github.com/Markdig/Markdig/raw/master/LICENSE.txt" target="_blank">Markdig</a>
-
-# Juegos/Aplicaciones multimedia
-
-- [Postal navideña](https://github.com/Microbyt-Konami/Navidad2023/raw/main/Third%20party%20licenses.md)
