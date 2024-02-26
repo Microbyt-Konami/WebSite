@@ -38,4 +38,14 @@ public static class HttpClientExtensions
 
         return markDown;
     }
+
+    public async static Task<string> GetMarkdownFromGitHubRawUtf8Async(this HttpClient http, string url, CancellationToken cancellationToken = default)
+    {
+        var text = await http.GetStringAsync(url, cancellationToken);
+        cancellationToken.ThrowIfCancellationRequested();
+
+        var markDown = Markdown.ToHtml(text);
+
+        return markDown;
+    }
 }
