@@ -12,7 +12,7 @@
 <div class="content">
     <div class="row">
         <fieldset>
-            <legend>História</legend>
+            <legend>@shLoc["HistoryLegend"]</legend>
             <div class="row">
                 @* <=576 sm:>=576 md:>=768 lg:>=992 xl:>=1200 xxl>=1400 *@
                 @* col-3 *@
@@ -36,13 +36,13 @@
     </div>
     <div class="row">
         <fieldset>
-            <legend>Notas de la versión</legend>
+            <legend>@loc["ReleaseNotesLegend"]</legend>
             <div>@((MarkupString)releaseNotes)</div>
         </fieldset>
     </div>
     <div class="row">
         <fieldset>
-            <legend>Licencias de terceros</legend>
+            <legend>@loc["ThirdPartyLicensesLegend"]</legend>
             <div>@((MarkupString)thirdPartyLicenses)</div>
         </fieldset>
     </div>
@@ -50,7 +50,7 @@
 
 @code
 {
-        string releaseNotes = "", thirdPartyLicenses = "";
+    string releaseNotes = "", thirdPartyLicenses = "";
 
     protected override async Task OnInitializedAsync()
     {

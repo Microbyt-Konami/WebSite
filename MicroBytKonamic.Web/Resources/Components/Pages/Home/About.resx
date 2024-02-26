@@ -109,4 +109,13 @@
   <data name="KonamiDescription" xml:space="preserve">
     <value>Konami, my childhood video game company, and also konami2001es, which is my brother's Twitter user.</value>
   </data>
+  <data name="HistoryLegend" xml:space="preserve">
+    <value>History</value>
+  </data>
+  <data name="ReleaseNotesLegend" xml:space="preserve">
+    <value>Release Notes</value>
+  </data>
+  <data name="ThirdPartyLicensesLegend" xml:space="preserve">
+    <value>Third party licenses</value>
+  </data>
 </root>
