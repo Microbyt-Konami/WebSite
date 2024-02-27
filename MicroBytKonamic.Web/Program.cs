@@ -56,7 +56,11 @@ app.UseHttpsRedirection();
 var provider = new Microsoft.AspNetCore.StaticFiles.FileExtensionContentTypeProvider();
 
 provider.Mappings.Add(new KeyValuePair<string, string>(".data", "application/octet-stream"));
+//provider.Mappings.Add(new KeyValuePair<string, string>(".data.gz", "application/octet-stream"));
 provider.Mappings.Add(new KeyValuePair<string, string>(".bundle", "application/octet-stream"));
+provider.Mappings.Add(new KeyValuePair<string, string>(".unityweb", "application/octet-stream"));
+//provider.Mappings.Add(new KeyValuePair<string, string>(".js.gz", "application/javascript"));
+//provider.Mappings.Add(new KeyValuePair<string, string>(".wasm.gz", "application/wasm"));
 
 app.UseStaticFiles(new StaticFileOptions()
 {
