@@ -5,6 +5,7 @@
 - Añadida página de acerca de es responsive, contiene Notas de las versiones y las licencias de tercero
 - Multiidioma
 - Fortuna del día
+- Unity player webgl admitir ficheros comprimidos
 
 2023.1
 - Google analitics
